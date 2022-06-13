@@ -1,6 +1,7 @@
 import requests
 import base64
 import json
+import urllib.request
 
 try:
     import http.cookiejar
@@ -57,5 +58,5 @@ class ViewliftAPI:
 
     def get_videos(self):
 
-        contents = url.get("https://www.livgolf.com/watch")
+        contents = urllib.request.urlopen("https://www.livgolf.com/watch").read()
         print(contents)
