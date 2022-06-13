@@ -11,6 +11,7 @@ import xbmc
 
 class ViewliftAPI:
     viewliftBaseUrl = "https://prod-api.viewlift.com/"
+    session = requests.Session()
 
     def __init__(self, plugin):
         self.plugin = plugin
