@@ -54,3 +54,8 @@ class ViewliftAPI:
             self.TOKEN = result['authorizationToken']
             self.plugin.set_setting('token', self.TOKEN)
         return result
+
+    def get_videos(self):
+
+        contents = url.get("https://www.livgolf.com/watch")
+        print(contents)
