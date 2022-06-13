@@ -29,7 +29,10 @@ class ViewliftAPI:
         }
         response = self.session.post(url, headers=headers, data=payload)
         result = None
-        if response.status_code == 200 and response.headers.get('content-type') == "application/json; charset=utf-8":
+        if response.status_code == 200 and response.headers.get('content-type') == "application/json":
+            print(response)
+            result = result = response.json()
+            print(result)
             errorcode = response.json().get("ErrorCode")
             errordesc = response.json().get("ErrorDescription")
             if errorcode != 0:
