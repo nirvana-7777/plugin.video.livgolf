@@ -47,4 +47,7 @@ class ViewliftAPI:
         payload = json.dumps({})
         referer = ''
         result = self.api_post(url, payload, referer)
+        if result is not None:
+            self.TOKEN = result['authorizationToken']
+            self.plugin.set_setting('token', self.TOKEN)
         return result
