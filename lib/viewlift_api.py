@@ -16,6 +16,7 @@ class ViewliftAPI:
     def __init__(self, plugin):
         self.plugin = plugin
         self.TOKEN = ''
+        self.__user_agent = 'kodi plugin for livgolf (python)'
 
     def api_post(self, url, payload, referer):
 
@@ -26,6 +27,8 @@ class ViewliftAPI:
 
         headers = {
             'connection': 'keep-alive',
+            'accept': 'application/json, text/plain, */*',
+            'user-agent': self.__user_agent,
             'accept-encoding': 'gzip, deflate, br',
         }
         response = self.session.post(url, headers=headers, data=payload)
@@ -47,7 +50,7 @@ class ViewliftAPI:
 
     def get_token(self):
 
-        url = self.viewliftBaseUrl + "identity/anonymous-token?&site=liv-golf"
+        url = self.viewliftBaseUrl + "identity/anonymous-token?site=liv-golf"
         payload = json.dumps({})
         referer = ''
         result = self.api_post(url, payload, referer)
