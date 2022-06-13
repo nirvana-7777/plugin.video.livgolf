@@ -12,7 +12,7 @@ import xbmcgui
 import xbmcplugin
 import xbmcaddon
 import posixpath
-from lib.hrti_api import HRTiAPI
+from lib.viewlift_api import ViewliftAPI
 from lib.common import Common
 
 try:
@@ -30,42 +30,14 @@ plugin = Common(
     addon_url=_URL
 )
 
-cache = StorageServer.StorageServer("HRTi", 24)
-api = HRTiAPI(plugin)
-username = plugin.get_setting("username")
-password = plugin.get_setting("password")
+cache = StorageServer.StorageServer("Viewlift", 24)
+api = ViewliftAPI(plugin)
 token = plugin.get_setting("token")
-userid = plugin.get_setting("customerid")
-ip = plugin.get_setting("ip")
-if token == '' or \
-        token == 'lAWX321gC0Gc5c4d7QGg3g7CbuTPbavEeQuhKRyebvaQWEaWO2N8kmqwKNSUc8Gw' or \
-        userid == "" or \
-        ip == "":
-    api.get_ip()
-    api.get_env()
-    api.get_conf()
-    login_result = api.grant_access(username, password)
-    if login_result is None:
-        plugin.dialog_ok("Login has failed, check credentials! Using default credentials for this session")
-        api.grant_access('anonymoushrt', 'an0nPasshrt')
-    api.register_device()
-    api.get_content_rating()
-    api.get_profiles()
+if token == '':
+    api.get_token
 else:
-    api.USERID = userid
     api.TOKEN = token
-    api.IP = ip
-device_id = plugin.get_setting("device_id")
-if device_id == "":
-    device_id = plugin.uniq_id()
-    plugin.set_setting("device_id", device_id)
-    api.register_device()
-    api.get_content_rating()
-    api.get_profiles()
-api.DEVICE_ID = device_id
-xbmc.log("UserID: " + str(api.USERID), level=xbmc.LOGDEBUG)
 xbmc.log("Token: " + str(api.TOKEN), level=xbmc.LOGDEBUG)
-xbmc.log("DeviceID: " + str(api.DEVICE_ID), level=xbmc.LOGDEBUG)
 
 CATEGORIES = [plugin.addon.getLocalizedString(30030),
               plugin.addon.getLocalizedString(30031),
