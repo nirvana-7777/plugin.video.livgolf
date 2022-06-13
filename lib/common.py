@@ -13,7 +13,6 @@ from base64 import b64decode
 from calendar import timegm
 from datetime import date, datetime, timedelta
 from hashlib import md5
-from inputstreamhelper import Helper
 from json import dump, load, loads
 from os.path import join
 from string import capwords
@@ -194,11 +193,6 @@ class Common():
 
     def open_is_settings(self):
         xbmcaddon.Addon(id='inputstream.adaptive').openSettings()
-
-
-    def start_is_helper(self):
-        helper = Helper(protocol='mpd', drm='widevine')
-        return helper.check_inputstream()
 
 
     def days(self, title, now, start):
