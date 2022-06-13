@@ -45,5 +45,6 @@ class ViewliftAPI:
 
         url = self.viewliftBaseUrl + "identity/anonymous-token?&site=liv-golf"
         payload = json.dumps({})
+        referer = ''
         result = self.api_post(url, payload, referer)
         return result
