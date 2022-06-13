@@ -59,6 +59,7 @@ class ViewliftAPI:
     def get_videos(self):
 
         response = urllib.request.urlopen("https://www.livgolf.com/watch").read()
-        content = response.xpath('//script[@id]/text()').get()
+        htmlStr = response.decode("utf8")
+        content = htmlStr.xpath('//script[@id]/text()').get()
         #print(response)
         print(content)
