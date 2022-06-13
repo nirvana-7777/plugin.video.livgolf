@@ -34,7 +34,7 @@ cache = StorageServer.StorageServer("Viewlift", 24)
 api = ViewliftAPI(plugin)
 token = plugin.get_setting("token")
 if token == '':
-    api.get_token
+    api.get_token()
 else:
     api.TOKEN = token
 xbmc.log("Token: " + str(api.TOKEN), level=xbmc.LOGDEBUG)
