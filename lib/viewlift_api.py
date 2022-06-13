@@ -1,7 +1,8 @@
 import requests
-import base64
+#import base64
 import json
-import urllib.request
+#import urllib.request
+import lxml.html
 
 try:
     import http.cookiejar
@@ -58,8 +59,9 @@ class ViewliftAPI:
 
     def get_videos(self):
 
-        response = urllib.request.urlopen("https://www.livgolf.com/watch").read()
-        htmlStr = response.decode("utf8")
-        content = htmlStr.xpath('//script[@id]/text()').get()
+ #       response = urllib.request.urlopen("https://www.livgolf.com/watch").read()
+ #       htmlStr = response.decode("utf8")
+        html = lxml.html.parse("https://www.livgolf.com/watch")
+        content = html.xpath('//script[@id]/text()').get()
         #print(response)
         print(content)
