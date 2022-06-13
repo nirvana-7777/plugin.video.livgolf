@@ -2,7 +2,8 @@ import requests
 #import base64
 import json
 #import urllib.request
-import lxml.html
+#from lxml import html
+import xml.etree.ElementTree as ElementTree
 
 try:
     import http.cookiejar
@@ -61,7 +62,12 @@ class ViewliftAPI:
 
  #       response = urllib.request.urlopen("https://www.livgolf.com/watch").read()
  #       htmlStr = response.decode("utf8")
-        html = lxml.html.parse("https://www.livgolf.com/watch")
-        content = html.xpath('//script[@id]/text()').get()
+        html = ElementTree.parse("https://www.livgolf.com/watch")
+
+
+        for elem in html.iter():
+            print(elem.tag, elem.attrib)
+        #e = html.findall('Items/Item/ItemAttributes/ListPrice/Amount')
+        #content = html.xpath('//script[@id]/text()').get()
         #print(response)
-        print(content)
+        #print(content)
