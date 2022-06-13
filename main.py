@@ -13,7 +13,7 @@ import xbmcplugin
 import xbmcaddon
 import posixpath
 from lib.viewlift_api import ViewliftAPI
-from lib.common import Common
+#from lib.common import Common
 
 try:
     import StorageServer
