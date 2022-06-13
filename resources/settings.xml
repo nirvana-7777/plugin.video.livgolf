@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="30000">
+        <setting label="30003" type="text" id="username" default=""/>
+        <setting label="30004" type="text" id="password" option="hidden"  default=""/>
+        <setting label="30001" type="bool" id="save_login" default="false" visible="false"/>
+        <setting label="30002" type="action" id="logout" action="RunPlugin(plugin://plugin.video.hrti/?action=logout)" option="close"/>
+        <setting label="country" type="text" id="country" default="" visible="false"/>
+        <setting label="language" type="text" id="language" default="en" visible="false"/>
+        <setting label="device_id" type="text" id="device_id" default="" visible="false"/>
+        <setting label="viewer_id" type="text" id="viewer_id" default="" visible="false"/>
+        <setting label="token" type="text" id="token" default="" visible="false"/>
+        <setting label="ip" type="ipaddress" id="ip" default="" visible="false"/>
+    </category>
+    <category label="30010">
+        <setting label="30011" type="text" id="customerid" default="" enable="false"/>
+        <setting label="30012" type="text" id="email" default="" enable="false"/>
+        <setting label="30013" type="text" id="firstname" default="" enable="false"/>
+        <setting label="30014" type="text" id="lastname" default="" enable="false"/>
+        <setting label="30015" type="text" id="language" default="" enable="false"/>
+        <setting label="30016" type="text" id="geoblocked" default="" enable="false"/>
+        <setting label="30017" type="text" id="videostoreenabled" default="" enable="false"/>
+        <setting label="30018" type="text" id="pvrhours" default="" enable="false"/>
+        <setting label="30019" type="text" id="validfrom" default="" enable="false"/>
+        <setting label="30009" type="text" id="validto" default="" enable="false"/>
+    </category>
+    <category label="30020">
+        <setting label="30021" type="slider" id="epgbefore" default="24" range="0,72" option="int" enable="true"/>
+        <setting label="30022" type="slider" id="epgafter" default="48" range="0,48" option="int" enable="true"/>
+    </category>
+    <category label="30040">
+        <setting label="30041" type="number" id="devicereferenceid" default="6" enable="false"/>
+        <setting label="30042" type="text" id="connectiontype" default="LAN/WiFi" enable="false"/>
+        <setting label="30043" type="text" id="applicationversion" default="5.62.5" enable="false"/>
+        <setting label="30044" type="text" id="osversion" default="Linux" enable="false"/>
+        <setting label="30045" type="text" id="clienttype" default="Chrome 96" enable="false"/>
+    </category>
+    <category label="30050">
+        <setting label="30051" type="text" id="operatorreferenceid" default="hrt" enable="false"/>
+        <setting label="30052" type="text" id="merchant" default="aviion2" enable="false"/>
+        <setting label="30053" type="text" id="apiurl" default="https://hsapi.aviion.tv/client.svc/json" enable="false"/>
+        <setting label="30054" type="text" id="webapiurl" default="api/api/ott" enable="false"/>
+        <setting label="30055" type="text" id="selfcareurl" default="https://hrti-selfcare.hrt.hr" enable="false"/>
+    </category>
+</settings>
