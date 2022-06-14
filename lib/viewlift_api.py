@@ -69,10 +69,11 @@ class ViewliftAPI:
         print(title)
         for script in root.iterfind(".//script"):
             print(script.get("id"))
-
+            if script.get("id") == "__NEXT_DATA__" and script.get("type") == "application/json":
+                print(script.text)
 #        for elem in html.iter():
  #           print(elem.tag, elem.attrib)
         #e = html.findall('Items/Item/ItemAttributes/ListPrice/Amount')
         #content = html.xpath('//script[@id]/text()').get()
-        print(response)
+        #print(response)
         #print(content)
