@@ -182,19 +182,23 @@ def play_video(videoid):
             if plugin.get_dict_value(mp4, 'bitrate') > bitrate:
                 bitrate = plugin.get_dict_value(mp4, 'bitrate')
                 mpeg_url = plugin.get_dict_value(mp4, 'url')
-    print(mpeg_url)
-    hls_url = video_details['video']['streamingInfo']['videoAssets']['hlsDetail']['url']
+    if mpeg_url != '':
+        video_property = 'mpd'
+        video_url = mpeg_url
+    else:
+        video_property = 'hls'
+        video_url = video_details['video']['streamingInfo']['videoAssets']['hlsDetail']['url']
     title = video_details['video']['gist']['title']
     description = video_details['video']['gist']['description']
     image = video_details['video']['gist']['videoImageUrl']
     duration = video_details['video']['gist']['runtime']
     metadata = {'plot': description,
                 'duration': int(duration / 1500)}
-    playitem = xbmcgui.ListItem(label=title, path=hls_url)
+    playitem = xbmcgui.ListItem(label=title, path=video_url)
     playitem.setInfo('video', metadata)
     playitem.setArt({'thumb': image})
     playitem.setProperty('inputstream', 'inputstream.adaptive')
-    playitem.setProperty('inputstream.adaptive.manifest_type', 'hls')
+    playitem.setProperty('inputstream.adaptive.manifest_type', video_property)
     #        playitem.setMimeType('application/vnd.apple.mpegurl')
     playitem.setContentLookup(False)
     xbmcplugin.setResolvedUrl(_HANDLE, True, listitem=playitem)
