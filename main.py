@@ -145,7 +145,7 @@ def list_videos(category):
                 videos = fields['videos']
                 for video in videos:
                     video_fields = video['fields']
-                    li_label = plugin.get_dict_value(video_fields, 'title') + '-' + plugin.get_dict_value(video_fields, 'eyebrow')
+                    li_label = plugin.get_dict_value(video_fields, 'title') + ' - ' + plugin.get_dict_value(video_fields, 'eyebrow')
                     list_item = xbmcgui.ListItem(label=li_label)
                     list_item.setProperty('IsPlayable', 'true')
                     metadata = {'mediatype': 'video'}
@@ -165,15 +165,13 @@ def list_videos(category):
     xbmcplugin.endOfDirectory(_HANDLE)
 
 
-def play_video(path, epg_ref_id):
+def play_video(videoid):
     """
     Play a video by the provided path.
-    :param path: Fully-qualified video URL
-    :param epg_ref_id EPG Reference
+    :param videoid: VideoID
     :type path: str
     """
-    parts = urlparse(path)
-
+    print(videoid)
 
 def router(paramstring):
     """
@@ -194,10 +192,10 @@ def router(paramstring):
         elif params['action'] == 'play':
             # Play a video from a provided URL.
             try:
-                epg_ref_id = params['referenceid']
+                videoid = params['referenceid']
             except KeyError:
-                epg_ref_id = None
-            play_video(params['video'], epg_ref_id)
+                videoid = None
+            play_video(videoid)
         else:
             # If the provided paramstring does not contain a supported action
             # we raise an exception. This helps to catch coding errors,
