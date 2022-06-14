@@ -171,12 +171,17 @@ def play_video(videoid):
     :param videoid: VideoID
     :type videoid: str
     """
-    print(videoid)
     video_details = api.get_video_details(videoid)
-    print(video_details)
     hls_url = video_details['video']['streamingInfo']['videoAssets']['hlsDetail']['url']
-    print(hls_url)
-    playitem = xbmcgui.ListItem(path=hls_url)
+    title = video_details['video']['gist']['title']
+    description = video_details['video']['gist']['description']
+    image = video_details['video']['gist']['videoImageUrl']
+    duration = video_details['video']['gist']['runtime']
+    metadata = {'plot': description,
+                'duration': int(duration / 1500)}
+    playitem = xbmcgui.ListItem(label=title, path=hls_url)
+    playitem.setInfo('video', metadata)
+    playitem.setArt({'thumb': image})
     playitem.setProperty('inputstream', 'inputstream.adaptive')
     playitem.setProperty('inputstream.adaptive.manifest_type', 'hls')
     #        playitem.setMimeType('application/vnd.apple.mpegurl')
