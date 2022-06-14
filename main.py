@@ -72,26 +72,6 @@ def get_categories():
     return categories
 
 
-def path_parse(path_string, *, normalize=True, module=posixpath):
-    result = []
-    if normalize:
-        tmp = module.normpath(path_string)
-    else:
-        tmp = path_string
-    while tmp != "/":
-        (tmp, item) = module.split(tmp)
-        result.insert(0, item)
-    return result
-
-
-def get_children(node, wanted_subcategory):
-    children = None
-    for child in node:
-        if plugin.get_dict_value(child, 'ReferenceId') == wanted_subcategory:
-            children = plugin.get_dict_value(child, 'Children')
-    return children
-
-
 def list_categories():
     """
     Create the list of video categories in the Kodi interface.
@@ -181,12 +161,12 @@ def play_video(videoid):
             if plugin.get_dict_value(mp4, 'bitrate') > bitrate:
                 bitrate = plugin.get_dict_value(mp4, 'bitrate')
                 mpeg_url = plugin.get_dict_value(mp4, 'url')
-    if mpeg_url != '':
-        video_property = 'mpd'
-        video_url = mpeg_url
-    else:
-        video_property = 'hls'
-        video_url = video_details['video']['streamingInfo']['videoAssets']['hlsDetail']['url']
+    #if mpeg_url != '':
+    #    video_property = 'mpd'
+    #    video_url = mpeg_url
+    #else:
+    video_property = 'hls'
+    video_url = video_details['video']['streamingInfo']['videoAssets']['hlsDetail']['url']
     title = video_details['video']['gist']['title']
     description = video_details['video']['gist']['description']
     image = video_details['video']['gist']['videoImageUrl']
