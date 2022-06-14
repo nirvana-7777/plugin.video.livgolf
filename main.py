@@ -145,13 +145,15 @@ def list_videos(category):
                 videos = fields['videos']
                 for video in videos:
                     video_fields = video['fields']
-                    list_item = xbmcgui.ListItem(label=plugin.get_dict_value(video_fields, 'title'))
+                    li_label = plugin.get_dict_value(video_fields, 'title') + '-' + plugin.get_dict_value(video_fields, 'eyebrow')
+                    list_item = xbmcgui.ListItem(label=li_label)
                     list_item.setProperty('IsPlayable', 'true')
                     metadata = {'mediatype': 'video'}
                     list_item.setInfo('video', metadata)
-#                    list_item.setArt({'thumb': plugin.get_dict_value(channel, 'Icon'),
-#                                      'icon': plugin.get_dict_value(channel, 'Icon'),
-#                                      'fanart': plugin.get_dict_value(channel, 'Icon')})
+                    image = 'https:' + video_fields['teaserImage']['fields']['file']['url']
+                    list_item.setArt({'thumb': image,
+                                      'icon': image,
+                                      'fanart': image})
                     url = get_url(action='play', videoid=plugin.get_dict_value(video_fields, 'videoId'))
                     is_folder = False
                     # Add our item to the Kodi virtual folder listing.
