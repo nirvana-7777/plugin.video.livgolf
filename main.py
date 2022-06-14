@@ -20,7 +20,6 @@ try:
 except:
     import storageserverdummy as StorageServer
 
-
 _HANDLE = int(sys.argv[1])
 _URL = sys.argv[0]
 
@@ -38,6 +37,7 @@ if token == '':
 else:
     api.TOKEN = token
 xbmc.log("Token: " + str(api.TOKEN), level=xbmc.LOGDEBUG)
+
 
 def get_url(**kwargs):
     """
@@ -145,7 +145,8 @@ def list_videos(category):
                 videos = fields['videos']
                 for video in videos:
                     video_fields = video['fields']
-                    li_label = plugin.get_dict_value(video_fields, 'title') + ' - ' + plugin.get_dict_value(video_fields, 'eyebrow')
+                    li_label = plugin.get_dict_value(video_fields, 'title') + ' - ' + \
+                               plugin.get_dict_value(video_fields, 'eyebrow')
                     list_item = xbmcgui.ListItem(label=li_label)
                     list_item.setProperty('IsPlayable', 'true')
                     metadata = {'mediatype': 'video'}
@@ -183,7 +184,7 @@ def play_video(videoid):
                 bitrate = plugin.get_dict_value(mp4, 'bitrate')
                 mpeg_url = plugin.get_dict_value(mp4, 'url')
     if mpeg_url != '':
-        video_property = 'mpd'
+        video_property = 'hls'
         video_url = mpeg_url
     else:
         video_property = 'hls'
@@ -202,6 +203,7 @@ def play_video(videoid):
     #        playitem.setMimeType('application/vnd.apple.mpegurl')
     playitem.setContentLookup(False)
     xbmcplugin.setResolvedUrl(_HANDLE, True, listitem=playitem)
+
 
 def router(paramstring):
     """
