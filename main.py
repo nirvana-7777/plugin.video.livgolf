@@ -172,6 +172,8 @@ def play_video(videoid):
     :type path: str
     """
     print(videoid)
+    video_details = api.get_video_details(videoid)
+    print(video_details)
 
 def router(paramstring):
     """
