@@ -177,7 +177,7 @@ def play_video(videoid):
     hls_url = video_details['video']['streamingInfo']['videoAssets']['hlsDetail']
     print(hls_url)
     playitem = xbmcgui.ListItem(path=hls_url)
-    playitem.setProperty('inputstreamaddon', 'inputstream.adaptive')
+    playitem.setProperty('inputstream', 'inputstream.adaptive')
     playitem.setProperty('inputstream.adaptive.manifest_type', 'hls')
     #        playitem.setMimeType('application/vnd.apple.mpegurl')
     playitem.setContentLookup(False)
