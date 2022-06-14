@@ -1,7 +1,7 @@
 # LIV Golf video plugin for Kodi (plugin.video.livgolf)
 
 ## Disclaimer
-This plugin is not officially commisioned/supported by Livgolf.
+This plugin is not officially commisioned/supported by LIVGOLF.
 Any trademarks used belong to their owning companies & organisations.
 
 ## Dependencies
