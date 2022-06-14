@@ -172,6 +172,7 @@ def play_video(videoid):
     :type videoid: str
     """
     video_details = api.get_video_details(videoid)
+    print(video_details)
     hls_url = video_details['video']['streamingInfo']['videoAssets']['hlsDetail']['url']
     title = video_details['video']['gist']['title']
     description = video_details['video']['gist']['description']
