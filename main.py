@@ -152,7 +152,7 @@ def list_videos(category):
 #                    list_item.setArt({'thumb': plugin.get_dict_value(channel, 'Icon'),
 #                                      'icon': plugin.get_dict_value(channel, 'Icon'),
 #                                      'fanart': plugin.get_dict_value(channel, 'Icon')})
-                    url = get_url(action='play', channel=plugin.get_dict_value(video_fields, 'videoId'))
+                    url = get_url(action='play', videoid=plugin.get_dict_value(video_fields, 'videoId'))
                     is_folder = False
                     # Add our item to the Kodi virtual folder listing.
                     xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, is_folder)
