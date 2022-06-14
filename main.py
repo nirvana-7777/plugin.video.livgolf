@@ -181,7 +181,7 @@ def play_video(videoid):
     playitem.setProperty('inputstream.adaptive.manifest_type', 'hls')
     #        playitem.setMimeType('application/vnd.apple.mpegurl')
     playitem.setContentLookup(False)
-    xbmcplugin.setResolvedUrl(_handle, True, playitem)
+    xbmcplugin.setResolvedUrl(_HANDLE, True, listitem=playitem)
 
 def router(paramstring):
     """
