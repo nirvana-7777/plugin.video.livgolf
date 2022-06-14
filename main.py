@@ -6,7 +6,7 @@
 Example video plugin that is compatible with Kodi 19.x "Matrix" and above
 """
 import sys
-from urllib.parse import urlencode, urlparse, parse_qsl
+#from urllib.parse import urlencode, urlparse, parse_qsl
 import xbmc
 import xbmcgui
 import xbmcplugin
@@ -192,7 +192,7 @@ def router(paramstring):
         elif params['action'] == 'play':
             # Play a video from a provided URL.
             try:
-                videoid = params['referenceid']
+                videoid = params['videoid']
             except KeyError:
                 videoid = None
             play_video(videoid)
