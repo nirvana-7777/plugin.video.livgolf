@@ -68,9 +68,7 @@ def get_categories():
             contenttypeid = component['sys']['contentType']['sys']['id']
             if contenttypeid == 'componentVideos':
                 fields = component['fields']
-                print(fields['title'])
                 categories.append(fields['title'])
-
     return categories
 
 
@@ -138,6 +136,27 @@ def list_videos(category):
     xbmcplugin.setContent(_HANDLE, 'videos')
     # Get the list of videos in the category.
     # Iterate through videos.
+    next_data = api.get_next_data()
+    if next_data is not None:
+        components = next_data['props']['pageProps']['page']['fields']['components']
+        for component in components:
+            fields = component['fields']
+            if fields['title'] == category:
+                videos = fields['videos']
+                for video in videos:
+                    video_fields = video['fields']
+                    list_item = xbmcgui.ListItem(label=plugin.get_dict_value(video_fields, 'title'))
+                    list_item.setProperty('IsPlayable', 'true')
+                    metadata = {'mediatype': 'video'}
+                    list_item.setInfo('video', metadata)
+#                    list_item.setArt({'thumb': plugin.get_dict_value(channel, 'Icon'),
+#                                      'icon': plugin.get_dict_value(channel, 'Icon'),
+#                                      'fanart': plugin.get_dict_value(channel, 'Icon')})
+                    url = get_url(action='play', channel=plugin.get_dict_value(video_fields, 'videoId'))
+                    is_folder = False
+                    # Add our item to the Kodi virtual folder listing.
+                    xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, is_folder)
+
     # Add a sort method for the virtual folder items (alphabetically, ignore articles)
     # xbmcplugin.addSortMethod(_HANDLE, xbmcplugin.SORT_METHOD_LABEL_IGNORE_THE)
     # Finish creating a virtual folder.
@@ -169,10 +188,7 @@ def router(paramstring):
     if params:
         if params['action'] == 'listing':
             # Display the list of videos in a provided category.
-            if params['category'] == plugin.addon.getLocalizedString(30030) or \
-                    params['category'] == plugin.addon.getLocalizedString(30031) or \
-                    params['category'] == plugin.addon.getLocalizedString(30032):
-                list_videos(params['category'])
+            list_videos(params['category'])
         elif params['action'] == 'play':
             # Play a video from a provided URL.
             try:
@@ -180,8 +196,6 @@ def router(paramstring):
             except KeyError:
                 epg_ref_id = None
             play_video(params['video'], epg_ref_id)
-        elif params['action'] == 'logout':
-            api.logout()
         else:
             # If the provided paramstring does not contain a supported action
             # we raise an exception. This helps to catch coding errors,
