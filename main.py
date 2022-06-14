@@ -174,7 +174,7 @@ def play_video(videoid):
     print(videoid)
     video_details = api.get_video_details(videoid)
     print(video_details)
-    hls_url = video_details['video']['streamingInfo']['videoAssets']['hlsDetail']
+    hls_url = video_details['video']['streamingInfo']['videoAssets']['hlsDetail']['url']
     print(hls_url)
     playitem = xbmcgui.ListItem(path=hls_url)
     playitem.setProperty('inputstream', 'inputstream.adaptive')
