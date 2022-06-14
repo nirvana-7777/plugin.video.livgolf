@@ -41,7 +41,9 @@ xbmc.log("Token: " + str(api.TOKEN), level=xbmc.LOGDEBUG)
 next_data = api.get_next_data()
 if next_data is not None:
     components = next_data['props']['pageProps']['page']['fields']['components']
-    print(components)
+    for component in components:
+        fields = component['fields']
+        print(fields['title'])
 
 CATEGORIES = [plugin.addon.getLocalizedString(30030),
               plugin.addon.getLocalizedString(30031),
