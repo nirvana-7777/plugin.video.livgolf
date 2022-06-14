@@ -2,6 +2,7 @@
 <addon id="plugin.video.livgolf" version="0.0.1" name="Livgolf" provider-name="Nirvana">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
+        <import addon="script.module.inputstreamhelper" version="0.5.0"/>
         <import addon="script.common.plugin.cache" version="2.6.1.1"/>
         <import addon="script.module.requests" version="2.12.4"/>
         <import addon="script.module.dateutil" version="2.7.3" />

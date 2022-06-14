@@ -169,11 +169,19 @@ def play_video(videoid):
     """
     Play a video by the provided path.
     :param videoid: VideoID
-    :type path: str
+    :type videoid: str
     """
     print(videoid)
     video_details = api.get_video_details(videoid)
     print(video_details)
+    hls_url = video_details['video']['streamingInfo']['videoAssets']['hlsDetail']
+    print(hls_url)
+    playitem = xbmcgui.ListItem(path=hls_url)
+    playitem.setProperty('inputstreamaddon', 'inputstream.adaptive')
+    playitem.setProperty('inputstream.adaptive.manifest_type', 'hls')
+    #        playitem.setMimeType('application/vnd.apple.mpegurl')
+    playitem.setContentLookup(False)
+    xbmcplugin.setResolvedUrl(_handle, True, playitem)
 
 def router(paramstring):
     """
