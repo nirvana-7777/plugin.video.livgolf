@@ -59,21 +59,14 @@ class ViewliftAPI:
             self.plugin.set_setting('token', self.TOKEN)
         return result
 
-    def get_videos(self):
+    def get_next_data(self):
 
         response = urllib.request.urlopen("https://www.livgolf.com/watch").read()
         htmlStr = response.decode("utf8")
- #       html = ElementTree.parse("https://www.livgolf.com/watch")
         root = htmlement.fromstring(htmlStr)
-        title = root.find("head/title").text
-        print(title)
+        result = None
         for script in root.iterfind(".//script"):
-            print(script.get("id"))
             if script.get("id") == "__NEXT_DATA__" and script.get("type") == "application/json":
                 print(script.text)
-#        for elem in html.iter():
- #           print(elem.tag, elem.attrib)
-        #e = html.findall('Items/Item/ItemAttributes/ListPrice/Amount')
-        #content = html.xpath('//script[@id]/text()').get()
-        #print(response)
-        #print(content)
+                result = json.loads(script.text, strict=False)
+        return result

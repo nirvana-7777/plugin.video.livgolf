@@ -38,7 +38,7 @@ if token == '':
 else:
     api.TOKEN = token
 xbmc.log("Token: " + str(api.TOKEN), level=xbmc.LOGDEBUG)
-api.get_videos()
+api.get_next_data()
 
 CATEGORIES = [plugin.addon.getLocalizedString(30030),
               plugin.addon.getLocalizedString(30031),
