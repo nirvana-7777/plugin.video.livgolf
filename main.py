@@ -55,7 +55,7 @@ def get_categories():
     Here you can insert some parsing code that retrieves
     the list of video categories (e.g. 'Movies', 'TV-shows', 'Documentaries' etc.)
     from some site or API.
-    .. note:: Consider using `generator functions <https://wiki.python.org/moin/Generators>`_
+    note:: Consider using `generator functions <https://wiki.python.org/moin/Generators>`_
         instead of returning lists.
     :return: The list of video categories
     :rtype: types.GeneratorType

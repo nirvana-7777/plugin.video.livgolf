@@ -16,7 +16,7 @@
     <extension point="xbmc.addon.metadata">
         <reuselanguageinvoker>true</reuselanguageinvoker>
         <news>
-            - Version 0.0.1: Initial
+            - Version 0.0.1: Initial release
         </news>
         <assets>
             <icon>resources/icon.png</icon>
