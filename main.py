@@ -38,7 +38,10 @@ if token == '':
 else:
     api.TOKEN = token
 xbmc.log("Token: " + str(api.TOKEN), level=xbmc.LOGDEBUG)
-api.get_next_data()
+next_data = api.get_next_data()
+if next_data is not None:
+    fields = next_data['props']['pageProps']['page']['fields']
+    print(fields)
 
 CATEGORIES = [plugin.addon.getLocalizedString(30030),
               plugin.addon.getLocalizedString(30031),

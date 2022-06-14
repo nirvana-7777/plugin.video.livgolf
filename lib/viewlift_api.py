@@ -67,6 +67,5 @@ class ViewliftAPI:
         result = None
         for script in root.iterfind(".//script"):
             if script.get("id") == "__NEXT_DATA__" and script.get("type") == "application/json":
-                print(script.text)
                 result = json.loads(script.text, strict=False)
         return result
