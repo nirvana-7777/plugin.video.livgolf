@@ -1,9 +1,10 @@
 import requests
 #import base64
 import json
-#import urllib.request
+import urllib.request
 #from lxml import html
-import xml.etree.ElementTree as ElementTree
+#import xml.etree.ElementTree as ElementTree
+import htmlement
 
 try:
     import http.cookiejar
@@ -60,14 +61,16 @@ class ViewliftAPI:
 
     def get_videos(self):
 
- #       response = urllib.request.urlopen("https://www.livgolf.com/watch").read()
- #       htmlStr = response.decode("utf8")
-        html = ElementTree.parse("https://www.livgolf.com/watch")
-
+        response = urllib.request.urlopen("https://www.livgolf.com/watch").read()
+        htmlStr = response.decode("utf8")
+ #       html = ElementTree.parse("https://www.livgolf.com/watch")
+        root = htmlement.fromstring(htmlStr)
+        title = root.find("head/title").text
+        print(title)
 
         for elem in html.iter():
             print(elem.tag, elem.attrib)
         #e = html.findall('Items/Item/ItemAttributes/ListPrice/Amount')
         #content = html.xpath('//script[@id]/text()').get()
-        #print(response)
+        print(response)
         #print(content)
