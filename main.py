@@ -38,19 +38,6 @@ if token == '':
 else:
     api.TOKEN = token
 xbmc.log("Token: " + str(api.TOKEN), level=xbmc.LOGDEBUG)
-next_data = api.get_next_data()
-if next_data is not None:
-    components = next_data['props']['pageProps']['page']['fields']['components']
-    for component in components:
-        contenttypeid = component['sys']['contentType']['sys']['id']
-        if contenttypeid == 'componentVideos':
-            fields = component['fields']
-            print(fields['title'])
-
-CATEGORIES = [plugin.addon.getLocalizedString(30030),
-              plugin.addon.getLocalizedString(30031),
-              plugin.addon.getLocalizedString(30032)]
-
 
 def get_url(**kwargs):
     """
@@ -73,7 +60,18 @@ def get_categories():
     :return: The list of video categories
     :rtype: types.GeneratorType
     """
-    return CATEGORIES
+    categories = []
+    next_data = api.get_next_data()
+    if next_data is not None:
+        components = next_data['props']['pageProps']['page']['fields']['components']
+        for component in components:
+            contenttypeid = component['sys']['contentType']['sys']['id']
+            if contenttypeid == 'componentVideos':
+                fields = component['fields']
+                print(fields['title'])
+                categories.append(fields['title'])
+
+    return categories
 
 
 def path_parse(path_string, *, normalize=True, module=posixpath):
@@ -102,7 +100,7 @@ def list_categories():
     """
     # Set plugin category. It is displayed in some skins as the name
     # of the current section.
-    xbmcplugin.setPluginCategory(_HANDLE, 'HRTi categories')
+    xbmcplugin.setPluginCategory(_HANDLE, 'Livgolf video categories')
     # Set plugin content. It allows Kodi to select appropriate views
     # for this type of content.
     xbmcplugin.setContent(_HANDLE, 'videos')
