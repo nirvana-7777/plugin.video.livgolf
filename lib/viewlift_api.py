@@ -67,9 +67,11 @@ class ViewliftAPI:
         root = htmlement.fromstring(htmlStr)
         title = root.find("head/title").text
         print(title)
+        for a in root.iterfind(".//script"):
+            print(a.get("id"))
 
-        for elem in html.iter():
-            print(elem.tag, elem.attrib)
+#        for elem in html.iter():
+ #           print(elem.tag, elem.attrib)
         #e = html.findall('Items/Item/ItemAttributes/ListPrice/Amount')
         #content = html.xpath('//script[@id]/text()').get()
         print(response)
