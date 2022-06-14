@@ -1,6 +1,6 @@
 # Module: main
 # Author: Nirvana
-# Created on: 20.12.2021
+# Created on: 12.06.2022
 # License: GPL v.3 https://www.gnu.org/copyleft/gpl.html
 """
 Example video plugin that is compatible with Kodi 19.x "Matrix" and above
@@ -145,8 +145,7 @@ def list_videos(category):
                 videos = fields['videos']
                 for video in videos:
                     video_fields = video['fields']
-                    li_label = plugin.get_dict_value(video_fields, 'title') + ' - ' + \
-                               plugin.get_dict_value(video_fields, 'eyebrow')
+                    li_label = plugin.get_dict_value(video_fields, 'title') + ' - ' + plugin.get_dict_value(video_fields, 'eyebrow')
                     list_item = xbmcgui.ListItem(label=li_label)
                     list_item.setProperty('IsPlayable', 'true')
                     metadata = {'mediatype': 'video'}
@@ -173,7 +172,6 @@ def play_video(videoid):
     :type videoid: str
     """
     video_details = api.get_video_details(videoid)
-    print(video_details)
     videoassets = video_details['video']['streamingInfo']['videoAssets']
     mpeg_url = ''
     mpeg = plugin.get_dict_value(videoassets, 'mpeg')
@@ -201,7 +199,6 @@ def play_video(videoid):
     if video_property == 'hls':
         playitem.setProperty('inputstream', 'inputstream.adaptive')
         playitem.setProperty('inputstream.adaptive.manifest_type', video_property)
-    #        playitem.setMimeType('application/vnd.apple.mpegurl')
     playitem.setContentLookup(False)
     xbmcplugin.setResolvedUrl(_HANDLE, True, listitem=playitem)
 

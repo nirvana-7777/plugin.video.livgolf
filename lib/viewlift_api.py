@@ -1,16 +1,7 @@
 import requests
-#import base64
 import json
 import urllib.request
-#from lxml import html
-#import xml.etree.ElementTree as ElementTree
 import htmlement
-
-try:
-    import http.cookiejar
-except ImportError:
-    import cookielib
-import xbmc
 
 
 class ViewliftAPI:
@@ -23,11 +14,6 @@ class ViewliftAPI:
         self.__user_agent = 'kodi plugin for livgolf (python)'
 
     def api_get(self, url, params):
-
-        cookie_header = None
-        for cookie in self.session.cookies:
-            if cookie.domain == '.viewlift.com':
-                cookie_header = cookie.name + "=" + cookie.value
 
         headers = {
             'connection': 'keep-alive',
@@ -57,11 +43,12 @@ class ViewliftAPI:
             self.plugin.set_setting('token', self.TOKEN)
         return result
 
-    def get_next_data(self):
+    @staticmethod
+    def get_next_data():
 
         response = urllib.request.urlopen("https://www.livgolf.com/watch").read()
-        htmlStr = response.decode("utf8")
-        root = htmlement.fromstring(htmlStr)
+        htmlstr = response.decode("utf8")
+        root = htmlement.fromstring(htmlstr)
         result = None
         for script in root.iterfind(".//script"):
             if script.get("id") == "__NEXT_DATA__" and script.get("type") == "application/json":
