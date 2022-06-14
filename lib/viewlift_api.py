@@ -22,7 +22,7 @@ class ViewliftAPI:
         self.TOKEN = ''
         self.__user_agent = 'kodi plugin for livgolf (python)'
 
-    def api_get(self, url, payload, referer, params):
+    def api_get(self, url, params):
 
         cookie_header = None
         for cookie in self.session.cookies:
@@ -34,6 +34,7 @@ class ViewliftAPI:
             'accept': 'application/json, text/plain, */*',
             'user-agent': self.__user_agent,
             'accept-encoding': 'gzip, deflate, br',
+            'authorization': self.TOKEN
         }
         response = self.session.get(url, headers=headers, params=params)
         result = None
@@ -47,12 +48,10 @@ class ViewliftAPI:
     def get_token(self):
 
         url = self.viewliftBaseUrl + "identity/anonymous-token"
-        payload = json.dumps({})
         params = {
             'site': 'liv-golf',
         }
-        referer = ''
-        result = self.api_get(url, payload, referer, params)
+        result = self.api_get(url, params)
         if result is not None:
             self.TOKEN = result['authorizationToken']
             self.plugin.set_setting('token', self.TOKEN)
@@ -67,4 +66,15 @@ class ViewliftAPI:
         for script in root.iterfind(".//script"):
             if script.get("id") == "__NEXT_DATA__" and script.get("type") == "application/json":
                 result = json.loads(script.text, strict=False)
+        return result
+
+    def get_video_details(self, videoid):
+
+        url = self.viewliftBaseUrl + "entitlement/video/status"
+        params = {
+            'id': videoid,
+            'deviceType': 'web_browser',
+            'contentConsumption': 'web'
+        }
+        result = self.api_get(url, params)
         return result
