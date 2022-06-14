@@ -176,7 +176,7 @@ def play_video(videoid):
     videoassets = video_details['video']['streamingInfo']['videoAssets']
     mpeg_url = ''
     mpeg = plugin.get_dict_value(videoassets, 'mpeg')
-    if  mpeg is not None:
+    if mpeg is not None:
         bitrate = 0
         for mp4 in mpeg:
             if plugin.get_dict_value(mp4, 'bitrate') > bitrate:
