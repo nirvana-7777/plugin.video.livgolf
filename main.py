@@ -173,6 +173,15 @@ def play_video(videoid):
     """
     video_details = api.get_video_details(videoid)
     print(video_details)
+    videoassets = video_details['video']['streamingInfo']['videoAssets']
+    mpeg_url = ''
+    if plugin.get_dict_value(videoassets, 'mpeg'):
+        bitrate = 0
+        for mp4 in mpeg:
+            if plugin.get_dict_value(mp4, 'bitrate') > bitrate:
+                bitrate = plugin.get_dict_value(mp4, 'bitrate')
+                mpeg_url = plugin.get_dict_value(mp4, 'url')
+    print(mpeg_url)
     hls_url = video_details['video']['streamingInfo']['videoAssets']['hlsDetail']['url']
     title = video_details['video']['gist']['title']
     description = video_details['video']['gist']['description']
