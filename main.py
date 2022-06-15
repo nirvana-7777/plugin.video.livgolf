@@ -173,7 +173,7 @@ def play_video(videoid):
     duration = video_details['video']['gist']['runtime']
     aired = video_details['video']['gist']['publishDate']
     language = video_details['video']['gist']['languageCode']
-    print(plugin.timestamp(aired))
+    print(plugin.time_stamp(aired))
     print('Language' + language)
     metadata = {'plot': description,
                 'aired': aired,
