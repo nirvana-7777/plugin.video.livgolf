@@ -181,7 +181,7 @@ def play_video(videoid):
     metadata = {'plot': description,
                 'title': title,
                 'genre': ['Sports','Golf'],
-                'aired': aired,
+                'aired': aired_str,
                 'duration': duration}
     playitem = xbmcgui.ListItem(label=title, path=video_url)
     playitem.setInfo('video', metadata)
