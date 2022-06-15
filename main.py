@@ -171,7 +171,9 @@ def play_video(videoid):
     description = video_details['video']['gist']['description']
     image = video_details['video']['gist']['videoImageUrl']
     duration = video_details['video']['gist']['runtime']
+    aired = plugin.get_datetime_from_epoch(video_details['video']['gist']['publishDate'])
     metadata = {'plot': description,
+                'aired': aired,
                 'duration': duration}
     playitem = xbmcgui.ListItem(label=title, path=video_url)
     playitem.setInfo('video', metadata)

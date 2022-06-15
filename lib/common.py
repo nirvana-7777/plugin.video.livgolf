@@ -49,7 +49,6 @@ class Common():
         self.addon_version = self.addon.getAddonInfo('version')
         self.addon_icon = self.addon.getAddonInfo('icon')
         self.addon_fanart = self.addon.getAddonInfo('fanart')
-        self.max_bw = self.addon.getSetting('max_bw')
         self.kodi_version = int(xbmc.getInfoLabel('System.BuildVersion').split('.')[0])
 
 #        self.railCache = StorageServer.StorageServer(py2_encode('{0}.rail').format(self.addon_id), 24 * 7)
