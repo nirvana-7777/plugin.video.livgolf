@@ -172,6 +172,9 @@ def play_video(videoid):
     image = video_details['video']['gist']['videoImageUrl']
     duration = video_details['video']['gist']['runtime']
     aired = plugin.get_datetime_from_epoch(video_details['video']['gist']['publishDate'])
+    language = ideo_details['video']['gist']['languageCode']
+    print(aired)
+    print(language)
     metadata = {'plot': description,
                 'aired': aired,
                 'duration': duration}
