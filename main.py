@@ -12,6 +12,7 @@ import xbmcgui
 import xbmcplugin
 import xbmcaddon
 import posixpath
+import time
 from lib.viewlift_api import ViewliftAPI
 from lib.common import Common
 
@@ -173,7 +174,11 @@ def play_video(videoid):
     duration = video_details['video']['gist']['runtime']
     aired = video_details['video']['gist']['publishDate']
     language = video_details['video']['gist']['languageCode']
-    print(plugin.time_stamp(str(aired/1000)))
+    unix_timestamp = aired
+    utc_time = time.gmtime(unix_timestamp)
+    local_time = time.localtime(unix_timestamp)
+    print(time.strftime("%Y-%m-%d %H:%M:%S", local_time))
+    print(time.strftime("%Y-%m-%d %H:%M:%S+00:00 (UTC)", utc_time))
     print('Language' + language)
     metadata = {'plot': description,
                 'aired': aired,
