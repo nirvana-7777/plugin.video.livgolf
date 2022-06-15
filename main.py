@@ -172,6 +172,7 @@ def play_video(videoid):
     description = video_details['video']['gist']['description']
     image = video_details['video']['gist']['videoImageUrl']
     duration = video_details['video']['gist']['runtime']
+    print('Duration: '+str(duration) )
     aired = video_details['video']['gist']['publishDate']
     language = video_details['video']['gist']['languageCode']
     unix_timestamp = aired / 1000
