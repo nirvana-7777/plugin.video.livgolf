@@ -177,10 +177,10 @@ def play_video(videoid):
     unix_timestamp = aired / 1000
     utc_time = time.gmtime(unix_timestamp)
     local_time = time.localtime(unix_timestamp)
-    print(time.strftime("%Y-%m-%d %H:%M:%S", local_time))
-    print(time.strftime("%Y-%m-%d %H:%M:%S+00:00 (UTC)", utc_time))
-    print('Language' + language)
+    aired_str = time.strftime("%Y-%m-%d %H:%M:%S", local_time)
     metadata = {'plot': description,
+                'title': title,
+                'genre': ['Sports','Golf'],
                 'aired': aired,
                 'duration': duration}
     playitem = xbmcgui.ListItem(label=title, path=video_url)
