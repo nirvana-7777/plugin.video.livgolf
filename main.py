@@ -172,7 +172,7 @@ def play_video(videoid):
     image = video_details['video']['gist']['videoImageUrl']
     duration = video_details['video']['gist']['runtime']
     metadata = {'plot': description,
-                'duration': int(duration / 1500)}
+                'duration': duration}
     playitem = xbmcgui.ListItem(label=title, path=video_url)
     playitem.setInfo('video', metadata)
     playitem.setArt({'thumb': image})
