@@ -172,7 +172,6 @@ def play_video(videoid):
     description = video_details['video']['gist']['description']
     image = video_details['video']['gist']['videoImageUrl']
     duration = video_details['video']['gist']['runtime']
-    print('Duration: '+str(duration) )
     aired = video_details['video']['gist']['publishDate']
     language = video_details['video']['gist']['languageCode']
     unix_timestamp = aired / 1000
@@ -183,7 +182,7 @@ def play_video(videoid):
                 'title': title,
                 'genre': ['Sports','Golf'],
                 'aired': aired_str,
-                'duration': duration}
+                'duration': int(duration)}
     playitem = xbmcgui.ListItem(label=title, path=video_url)
     playitem.setInfo('video', metadata)
     playitem.setArt({'thumb': image})
