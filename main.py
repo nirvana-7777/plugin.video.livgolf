@@ -174,7 +174,7 @@ def play_video(videoid):
     duration = video_details['video']['gist']['runtime']
     aired = video_details['video']['gist']['publishDate']
     language = video_details['video']['gist']['languageCode']
-    unix_timestamp = aired
+    unix_timestamp = aired / 1000
     utc_time = time.gmtime(unix_timestamp)
     local_time = time.localtime(unix_timestamp)
     print(time.strftime("%Y-%m-%d %H:%M:%S", local_time))
