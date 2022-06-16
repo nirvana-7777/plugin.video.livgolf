@@ -182,7 +182,7 @@ def play_video(videoid):
                 'title': title,
                 'genre': ['Sports','Golf'],
                 'aired': aired_str,
-                'duration': int(duration)}
+                'duration': (int(duration) // 60) * 60}
     playitem = xbmcgui.ListItem(label=title, path=video_url)
     playitem.setInfo('video', metadata)
     playitem.setArt({'thumb': image})
