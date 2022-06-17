@@ -64,12 +64,16 @@ def get_categories():
     categories = []
     next_data = api.get_next_data()
     if next_data is not None:
-        components = next_data['props']['pageProps']['page']['fields']['components']
-        for component in components:
-            contenttypeid = component['sys']['contentType']['sys']['id']
-            if contenttypeid == 'componentVideos':
-                fields = component['fields']
-                categories.append(fields['title'])
+#        components = next_data['props']['pageProps']['page']['fields']['components']
+        blocks =  next_data['props']['pageProps']['blocks']
+#        for component in components:
+#            contenttypeid = component['sys']['contentType']['sys']['id']
+#            if contenttypeid == 'componentVideos':
+#                fields = component['fields']
+#                categories.append(fields['title'])
+        for block in blocks:
+            if plugin.get_dict_value(block, 'name') == 'componentVideos':
+                categories.append(plugin.get_dict_value(block, 'title'))
     return categories
 
 
@@ -139,7 +143,6 @@ def list_videos(category):
                     is_folder = False
                     # Add our item to the Kodi virtual folder listing.
                     xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, is_folder)
-
     # Add a sort method for the virtual folder items (alphabetically, ignore articles)
     # xbmcplugin.addSortMethod(_HANDLE, xbmcplugin.SORT_METHOD_LABEL_IGNORE_THE)
     # Finish creating a virtual folder.
