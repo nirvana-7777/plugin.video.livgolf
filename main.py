@@ -91,7 +91,7 @@ def list_categories():
     text = 'This is a test'
     list_item = xbmcgui.ListItem(label=text)
     url = get_url(action='none')
-    xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, false)
+    xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, False)
     # Get video categories
     categories = get_categories()
     # Iterate through categories
