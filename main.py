@@ -89,7 +89,7 @@ def list_categories():
     # for this type of content.
     xbmcplugin.setContent(_HANDLE, 'videos')
     texts = get_categories('componentIntro')
-    for text in texts
+    for text in texts:
         list_item = xbmcgui.ListItem(label=text)
         url = get_url(action='none')
         xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, False)
