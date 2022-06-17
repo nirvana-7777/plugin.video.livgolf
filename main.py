@@ -64,17 +64,21 @@ def get_categories(filter):
     categories = []
     next_data = api.get_next_data()
     if next_data is not None:
-#        components = next_data['props']['pageProps']['page']['fields']['components']
-        blocks =  next_data['props']['pageProps']['blocks']
-#        for component in components:
-#            contenttypeid = component['sys']['contentType']['sys']['id']
-#            if contenttypeid == 'componentVideos':
-#                fields = component['fields']
-#                categories.append(fields['title'])
+        blocks = next_data['props']['pageProps']['blocks']
         for block in blocks:
             if plugin.get_dict_value(block, 'name') == filter:
                 content = plugin.get_dict_value(block, 'content')
-                categories.append(plugin.get_dict_value(content, 'title'))
+                if filter == 'componentIntro':
+                    text = plugin.get_dict_value(content, 'title')
+                    teaser = plugin.get_dict_value(content, 'teaser')
+                    teaser_content = plugin.get_dict_value(teaser, 'content')
+                    for paragraph in teaser_content:
+                        paragraph_content = plugin.get_dict_value(paragraph, 'content')
+                        if plugin.get_dict_value(paragraph_content, 'nodeType') == 'text':
+                            text += ' - ' + plugin.get_dict_value(paragraph_content, 'value')
+                    categories.append(text)
+                else:
+                    categories.append(plugin.get_dict_value(content, 'title'))
     return categories
 
 
