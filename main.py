@@ -66,6 +66,7 @@ def get_categories():
     if next_data is not None:
 #        components = next_data['props']['pageProps']['page']['fields']['components']
         blocks =  next_data['props']['pageProps']['blocks']
+        print(blocks)
 #        for component in components:
 #            contenttypeid = component['sys']['contentType']['sys']['id']
 #            if contenttypeid == 'componentVideos':
