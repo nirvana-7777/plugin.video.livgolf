@@ -66,7 +66,6 @@ def get_categories():
     if next_data is not None:
 #        components = next_data['props']['pageProps']['page']['fields']['components']
         blocks =  next_data['props']['pageProps']['blocks']
-        print(blocks)
 #        for component in components:
 #            contenttypeid = component['sys']['contentType']['sys']['id']
 #            if contenttypeid == 'componentVideos':
@@ -74,7 +73,8 @@ def get_categories():
 #                categories.append(fields['title'])
         for block in blocks:
             if plugin.get_dict_value(block, 'name') == 'componentVideos':
-                categories.append(plugin.get_dict_value(block, 'title'))
+                content = plugin.get_dict_value(block, 'content')
+                categories.append(plugin.get_dict_value(content, 'title'))
     return categories
 
 
