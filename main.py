@@ -68,17 +68,15 @@ def get_categories(filter):
         for block in blocks:
             if plugin.get_dict_value(block, 'name') == filter:
                 content = plugin.get_dict_value(block, 'content')
+                text = plugin.get_dict_value(content, 'title')
                 if filter == 'componentIntro':
-                    text = plugin.get_dict_value(content, 'title')
                     teaser = plugin.get_dict_value(content, 'teaser')
                     teaser_content = plugin.get_dict_value(teaser, 'content')
                     for paragraph in teaser_content:
                         paragraph_content = plugin.get_dict_value(paragraph, 'content')
                         if plugin.get_dict_value(paragraph_content, 'nodeType') == 'text':
                             text += ' - ' + plugin.get_dict_value(paragraph_content, 'value')
-                    categories.append(text)
-                else:
-                    categories.append(plugin.get_dict_value(content, 'title'))
+                categories.append(text)
     return categories
 
 
