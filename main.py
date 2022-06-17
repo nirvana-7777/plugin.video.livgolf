@@ -88,6 +88,10 @@ def list_categories():
     # Set plugin content. It allows Kodi to select appropriate views
     # for this type of content.
     xbmcplugin.setContent(_HANDLE, 'videos')
+    text = 'This is a test'
+    list_item = xbmcgui.ListItem(label=text)
+    url = get_url(action='none')
+    xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, false)
     # Get video categories
     categories = get_categories()
     # Iterate through categories
