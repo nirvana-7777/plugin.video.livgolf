@@ -50,7 +50,7 @@ def get_url(**kwargs):
     return '{}?{}'.format(_URL, urlencode(kwargs))
 
 
-def get_categories():
+def get_categories(filter):
     """
     Get the list of video categories.
     Here you can insert some parsing code that retrieves
@@ -72,7 +72,7 @@ def get_categories():
 #                fields = component['fields']
 #                categories.append(fields['title'])
         for block in blocks:
-            if plugin.get_dict_value(block, 'name') == 'componentVideos':
+            if plugin.get_dict_value(block, 'name') == filter:
                 content = plugin.get_dict_value(block, 'content')
                 categories.append(plugin.get_dict_value(content, 'title'))
     return categories
@@ -88,12 +88,13 @@ def list_categories():
     # Set plugin content. It allows Kodi to select appropriate views
     # for this type of content.
     xbmcplugin.setContent(_HANDLE, 'videos')
-    text = 'This is a test'
-    list_item = xbmcgui.ListItem(label=text)
-    url = get_url(action='none')
-    xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, False)
+    texts = get_categories('componentIntro')
+    for text in texts
+        list_item = xbmcgui.ListItem(label=text)
+        url = get_url(action='none')
+        xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, False)
     # Get video categories
-    categories = get_categories()
+    categories = get_categories('componentVideos')
     # Iterate through categories
     for category in categories:
         # Create a list item with a text label and a thumbnail image.
