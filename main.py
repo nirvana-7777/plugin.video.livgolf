@@ -140,6 +140,7 @@ def list_videos(category):
                     for video in videos:
                         if plugin.get_dict_value(video, 'componentName') == 'video':
                             metadata = {'mediatype': 'video'}
+                            metadata['genre'] = ['Sports', 'Golf']
                             li_label = plugin.get_dict_value(video, 'title')
                             eyebrow = plugin.get_dict_value(video, 'eyebrow')
                             if eyebrow is not None and eyebrow != '':
