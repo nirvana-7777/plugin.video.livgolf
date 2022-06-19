@@ -141,7 +141,7 @@ def list_videos(category):
                         if plugin.get_dict_value(video, 'componentName') == 'video':
                             li_label = plugin.get_dict_value(video, 'title')
                             eyebrow = plugin.get_dict_value(video, 'eyebrow')
-                            if eyebrow is not None:
+                            if eyebrow is not None and eyebrow != '':
                                 li_label+= ' - ' + eyebrow
                             date = plugin.get_dict_value(video, 'date')
                             if date is not None:
