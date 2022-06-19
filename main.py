@@ -139,16 +139,18 @@ def list_videos(category):
                     videos = plugin.get_dict_value(content, 'videos')
                     for video in videos:
                         if plugin.get_dict_value(video, 'componentName') == 'video':
+                            metadata = {'mediatype': 'video'}
                             li_label = plugin.get_dict_value(video, 'title')
                             eyebrow = plugin.get_dict_value(video, 'eyebrow')
                             if eyebrow is not None and eyebrow != '':
                                 li_label+= ' - ' + eyebrow
+                            metadata['title'] = li_label
                             date = plugin.get_dict_value(video, 'date')
                             if date is not None:
                                 li_label+= ' (' + date + ')'
+                                metadata['aired'] = date
                             list_item = xbmcgui.ListItem(label=li_label)
                             list_item.setProperty('IsPlayable', 'true')
-                            metadata = {'mediatype': 'video'}
                             list_item.setInfo('video', metadata)
                             image = video['teaserImage']['src']
                             list_item.setArt({'thumb': image,
@@ -196,11 +198,13 @@ def play_video(videoid):
     utc_time = time.gmtime(unix_timestamp)
     local_time = time.localtime(unix_timestamp)
     aired_str = time.strftime("%Y-%m-%d %H:%M:%S", local_time)
-    metadata = {'plot': description,
-                'title': title,
-                'genre': ['Sports','Golf'],
-                'aired': aired_str,
-                'duration': int(duration)}
+    metadata = {
+        'plot': description,
+        'title': title,
+        'genre': ['Sports','Golf'],
+        'aired': aired_str,
+        'duration': int(duration),
+    }
     playitem = xbmcgui.ListItem(label=title, path=video_url)
     playitem.setInfo('video', metadata)
     playitem.setArt({'thumb': image})
