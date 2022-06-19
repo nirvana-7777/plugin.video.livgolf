@@ -131,26 +131,51 @@ def list_videos(category):
     # Iterate through videos.
     next_data = api.get_next_data()
     if next_data is not None:
-        components = next_data['props']['pageProps']['page']['fields']['components']
-        for component in components:
-            fields = component['fields']
-            if fields['title'] == category:
-                videos = fields['videos']
-                for video in videos:
-                    video_fields = video['fields']
-                    li_label = plugin.get_dict_value(video_fields, 'title') + ' - ' + plugin.get_dict_value(video_fields, 'eyebrow')
-                    list_item = xbmcgui.ListItem(label=li_label)
-                    list_item.setProperty('IsPlayable', 'true')
-                    metadata = {'mediatype': 'video'}
-                    list_item.setInfo('video', metadata)
-                    image = 'https:' + video_fields['teaserImage']['fields']['file']['url']
-                    list_item.setArt({'thumb': image,
-                                      'icon': image,
-                                      'fanart': image})
-                    url = get_url(action='play', videoid=plugin.get_dict_value(video_fields, 'videoId'))
-                    is_folder = False
-                    # Add our item to the Kodi virtual folder listing.
-                    xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, is_folder)
+        blocks = next_data['props']['pageProps']['blocks']
+        for block in blocks:
+            if plugin.get_dict_value(block, 'name') == 'componentVideos':
+                content = plugin.get_dict_value(block, 'content')
+                if plugin.get_dict_value(content, 'title') == category:
+                    videos = plugin.get_dict_value(content, 'videos')
+                    for video in videos:
+                        if plugin.get_dict_value(video, 'componentName') == 'video':
+                            li_label = plugin.get_dict_value(video, 'title') + ' - ' + plugin.get_dict_value(
+                                video, 'eyebrow')
+                            date = plugin.get_dict_value(video, 'date')
+                            if date is not None:
+                                li_label+= ' (' + date + ')'
+                            list_item = xbmcgui.ListItem(label=li_label)
+                            list_item.setProperty('IsPlayable', 'true')
+                            metadata = {'mediatype': 'video'}
+                            list_item.setInfo('video', metadata)
+                            image = video['teaserImage']['src']
+                            list_item.setArt({'thumb': image,
+                                              'icon': image,
+                                              'fanart': image})
+                            url = get_url(action='play', videoid=plugin.get_dict_value(video, 'videoId'))
+                            is_folder = False
+                            # Add our item to the Kodi virtual folder listing.
+                            xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, is_folder)
+#        components = next_data['props']['pageProps']['page']['fields']['components']
+#        for component in components:
+#            fields = component['fields']
+#            if fields['title'] == category:
+#                videos = fields['videos']
+#                for video in videos:
+#                    video_fields = video['fields']
+#                    li_label = plugin.get_dict_value(video_fields, 'title') + ' - ' + plugin.get_dict_value(video_fields, 'eyebrow')
+#                    list_item = xbmcgui.ListItem(label=li_label)
+#                    list_item.setProperty('IsPlayable', 'true')
+#                    metadata = {'mediatype': 'video'}
+#                    list_item.setInfo('video', metadata)
+#                    image = 'https:' + video_fields['teaserImage']['fields']['file']['url']
+#                    list_item.setArt({'thumb': image,
+#                                      'icon': image,
+#                                      'fanart': image})
+#                    url = get_url(action='play', videoid=plugin.get_dict_value(video_fields, 'videoId'))
+#                    is_folder = False
+#                    # Add our item to the Kodi virtual folder listing.
+#                    xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, is_folder)
     # Add a sort method for the virtual folder items (alphabetically, ignore articles)
     # xbmcplugin.addSortMethod(_HANDLE, xbmcplugin.SORT_METHOD_LABEL_IGNORE_THE)
     # Finish creating a virtual folder.
