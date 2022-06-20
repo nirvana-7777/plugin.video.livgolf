@@ -2,7 +2,7 @@ import requests
 import json
 import urllib.request
 import htmlement
-import base64
+from base64 import b64decode
 
 
 class ViewliftAPI:
@@ -70,8 +70,10 @@ class ViewliftAPI:
     def store_token_settings(self):
         token = self.plugin.get_setting('token')
         token += '=' * (-len(token) % 4)  # restore stripped '='s
-        decoded_token = base64.b64decode(token)
+        decoded_token = b64decode(token).decode('utf-8')
         print(decoded_token)
+        json_token = json.loads(decoded_token, strict=False)
+        print(json_token)
         return True
 
     def is_token_valid(self):
