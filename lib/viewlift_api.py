@@ -87,7 +87,7 @@ class ViewliftAPI:
         print(json_token)
         self.store_date_time('issue_date', 'issue_time', self.plugin.get_dict_value(json_token, 'iat'))
         self.store_date_time('expire_date', 'expire_time', self.plugin.get_dict_value(json_token, 'exp'))
-        self.plugin.set_setting('ip', self.plugin.get_dict_value(json_token, 'ipaddress')
+        self.plugin.set_setting('ip', self.plugin.get_dict_value(json_token, 'ipaddress'))
         return True
 
     def is_token_valid(self):
