@@ -61,7 +61,7 @@ class ViewliftAPI:
         params = {
             'id': videoid,
             'deviceType': 'web_browser',
-            'contentConsumption': 'web'
+            'contentConsumption': 'web',
         }
         result = self.api_get(url, params)
         return result
