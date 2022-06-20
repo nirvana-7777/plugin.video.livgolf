@@ -72,7 +72,7 @@ class ViewliftAPI:
         token += '=' * (-len(token) % 4)  # restore stripped '='s
         decoded_token = b64decode(token)
         print(decoded_token)
-        json_token = json.loads(decoded_token)
+        json_token = json.dumps(decoded_token, indent=2)
         print(json_token)
         return True
 
