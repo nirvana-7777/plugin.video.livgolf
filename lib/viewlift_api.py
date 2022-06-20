@@ -2,6 +2,7 @@ import requests
 import json
 import urllib.request
 import htmlement
+import re
 from base64 import b64decode
 
 
@@ -72,8 +73,9 @@ class ViewliftAPI:
         token += '=' * (-len(token) % 4)  # restore stripped '='s
         decoded_token = b64decode(token)
         print(decoded_token)
-        stripped = decoded_token[decoded_token.find("{")+1:decoded_token.find("}")]
-        print(stripped)
+        #stripped = decoded_token[decoded_token.find("{")+1:decoded_token.find("}")]
+        m = re.search(r"\{([A-Za-z0-9_]+)\}", s)
+        print(m.group(1))
         #json_token = json.dumps(decoded_token, indent=2)
         #print(json_token)
         return True
