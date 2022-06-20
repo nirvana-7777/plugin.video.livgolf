@@ -74,7 +74,9 @@ class ViewliftAPI:
         decoded_token = b64decode(token)
         print(decoded_token)
         #stripped = decoded_token[decoded_token.find("{")+1:decoded_token.find("}")]
-        m = re.search(r"\{([A-Za-z0-9_]+)\}", str(decoded_token))
+        str_decoded_token = str(decoded_token)
+        print(str_decoded_token)
+        m = re.search(r"\{([A-Za-z0-9_]+)\}", str_decoded_token)
         print(m.group(1))
         #json_token = json.dumps(decoded_token, indent=2)
         #print(json_token)
