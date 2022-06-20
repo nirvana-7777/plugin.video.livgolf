@@ -72,8 +72,10 @@ class ViewliftAPI:
         token += '=' * (-len(token) % 4)  # restore stripped '='s
         decoded_token = b64decode(token)
         print(decoded_token)
-        json_token = json.dumps(decoded_token, indent=2)
-        print(json_token)
+        stripped = token[token.find("{") + 1:token.find("}")]
+        print(stripped)
+        #json_token = json.dumps(decoded_token, indent=2)
+        #print(json_token)
         return True
 
     def is_token_valid(self):
