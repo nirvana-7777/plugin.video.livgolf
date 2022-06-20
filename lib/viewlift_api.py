@@ -69,7 +69,7 @@ class ViewliftAPI:
 
     def store_token_settings(self):
         token = self.plugin.get_setting('token')
-        token += '=' * (-len(string) % 4)  # restore stripped '='s
+        token += '=' * (-len(token) % 4)  # restore stripped '='s
         decoded_token = base64.b64decode(token)
         print(decoded_token)
         return true
