@@ -3,6 +3,7 @@ import json
 import urllib.request
 import htmlement
 import re
+import time
 from base64 import b64decode
 
 
@@ -72,13 +73,17 @@ class ViewliftAPI:
         token = self.plugin.get_setting('token')
         token += '=' * (-len(token) % 4)  # restore stripped '='s
         decoded_token = b64decode(token)
-        print(decoded_token)
-        #stripped = decoded_token[decoded_token.find("{")+1:decoded_token.find("}")]
         str_decoded_token = str(decoded_token)
-        print(str_decoded_token)
         val = str_decoded_token.split('{', 1)[1].split('}')[1] + '}'
         json_token = json.loads(val, strict=False)
         print(json_token)
+        iat = self.plugin.get_dict_value(json_token, 'iat')
+        local_time = time.localtime(iat)
+        store_date = time.strftime("%Y-%m-%d", local_time)
+        store_time = time.strftime("%H:%M:%S", local_time)
+        print(store_date)
+        print(store_time)
+        exp = self.plugin.get_dict_value(json_token, 'exp')
         return True
 
     def is_token_valid(self):
