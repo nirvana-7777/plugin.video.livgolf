@@ -76,12 +76,9 @@ class ViewliftAPI:
         #stripped = decoded_token[decoded_token.find("{")+1:decoded_token.find("}")]
         str_decoded_token = str(decoded_token)
         print(str_decoded_token)
-        val = str_decoded_token.split('{', 1)[1].split('}')[1]
-        print(val)
-        #m = re.search(r"\{(\w+)\}", str_decoded_token)
-        #print(m.group(1))
-        #json_token = json.dumps(decoded_token, indent=2)
-        #print(json_token)
+        val = str_decoded_token.split('{', 1)[1].split('}')[1] + '}'
+        json_token = json.loads(val, strict=False)
+        print(json_token)
         return True
 
     def is_token_valid(self):
