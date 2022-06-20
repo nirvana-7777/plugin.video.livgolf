@@ -205,6 +205,7 @@ def play_video(videoid):
         'genre': ['Sports','Golf'],
         'aired': aired_str,
         'duration': int(duration),
+        'mediatype': 'tvshow',
     }
     playitem = xbmcgui.ListItem(label=title, path=video_url)
     playitem.setInfo('video', metadata)
