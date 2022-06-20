@@ -76,7 +76,7 @@ class ViewliftAPI:
         #stripped = decoded_token[decoded_token.find("{")+1:decoded_token.find("}")]
         str_decoded_token = str(decoded_token)
         print(str_decoded_token)
-        val = str_decoded_token.split('{', 1)[1].split('}')[0]
+        val = str_decoded_token.split('{', 1)[1].split('}')[1]
         print(val)
         #m = re.search(r"\{(\w+)\}", str_decoded_token)
         #print(m.group(1))
