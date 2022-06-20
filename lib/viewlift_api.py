@@ -2,6 +2,7 @@ import requests
 import json
 import urllib.request
 import htmlement
+import base64
 
 
 class ViewliftAPI:
@@ -65,3 +66,17 @@ class ViewliftAPI:
         }
         result = self.api_get(url, params)
         return result
+
+    def store_token_settings(self):
+        token = self.plugin.get_setting('token')
+        decoded_token = base64.b64decode(token)
+        print(decoded_token)
+        return true
+
+    def is_token_valid(self):
+
+        expire_date = plugin.get_setting('expire_date')
+        expire_time = plugin.get_setting('expire_time')
+        if expire_date == '' or expire_time == '':
+            store_token_settings()
+        return True

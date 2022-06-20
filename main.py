@@ -33,7 +33,7 @@ plugin = Common(
 cache = StorageServer.StorageServer("Viewlift", 24)
 api = ViewliftAPI(plugin)
 token = plugin.get_setting("token")
-if token == '':
+if token == '' or not api.is_token_valid():
     api.get_token()
 else:
     api.TOKEN = token

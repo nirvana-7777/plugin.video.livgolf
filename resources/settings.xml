@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
     <category label="Viewlift API">
-        <setting label="token" type="text" id="token" default="" visible="false"/>
+        <setting label="site" type="text" id="site" default="liv-golf" visible="false"/>
         <setting label="device_type" type="text" id="device_type" default="web_browser" visible="false"/>
+    </category>
+        <category label="Token">
+        <setting label="token" type="text" id="token" default="" visible="false"/>
+        <setting label="ip" type="ipaddress" id="ip" default="" visible="true"/>
+        <setting label="Issue date" type="date" id="issue_date" default="" visible="true"/>
+        <setting label="Issue time" type="time" id="issue_time" default="" visible="true"/>
+        <setting label="Expire date" type="date" id="expire_date" default="" visible="true"/>
+        <setting label="Expire time" type="time" id="expire_time" default="" visible="true"/>
     </category>
 </settings>
