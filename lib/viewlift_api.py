@@ -98,8 +98,8 @@ class ViewliftAPI:
         return True
 
     def is_token_valid(self):
-        expire_epoch = self.plugin.get_setting('expire_epoch')
-        if expire_epoch == '':
+        expire_epoch = int(self.plugin.get_setting('expire_epoch'))
+        if expire_epoch == 0:
             self.store_token_settings()
             expire_epoch = self.plugin.get_setting('expire_epoch')
         if int(time.time()) < int(expire_epoch):
