@@ -84,7 +84,7 @@ class ViewliftAPI:
     def store_token_settings(self):
         token = self.plugin.get_setting('token')
         print('setting'+token)
-        decoded_token = b64decode(self.TOKEN + '=' * (-len(self.TOKEN) % 4))
+        decoded_token = b64decode(self.TOKEN + '=' * (len(self.TOKEN) % 4))
         str_decoded_token = str(decoded_token)
         val = str_decoded_token.split('{', 1)[1].split('}')[1] + '}'
         json_token = json.loads(val, strict=False)
