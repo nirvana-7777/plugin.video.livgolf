@@ -139,16 +139,18 @@ def list_videos(category):
                     videos = plugin.get_dict_value(content, 'videos')
                     for video in videos:
                         if plugin.get_dict_value(video, 'componentName') == 'video':
-                            metadata = {'mediatype': 'video'}
-                            metadata['genre'] = ['Sports', 'Golf']
+                            metadata = {
+                                'mediatype': 'video',
+                                'genre': ['Sports', 'Golf']
+                            }
                             li_label = plugin.get_dict_value(video, 'title')
                             eyebrow = plugin.get_dict_value(video, 'eyebrow')
                             if eyebrow is not None and eyebrow != '':
-                                li_label+= ' - ' + eyebrow
+                                li_label += ' - ' + eyebrow
                             metadata['title'] = li_label
                             date = plugin.get_dict_value(video, 'date')
                             if date is not None:
-                                li_label+= ' (' + date + ')'
+                                li_label += ' (' + date + ')'
                                 metadata['aired'] = date
                             list_item = xbmcgui.ListItem(label=li_label)
                             list_item.setProperty('IsPlayable', 'true')
@@ -202,7 +204,7 @@ def play_video(videoid):
     metadata = {
         'plot': description,
         'title': title,
-        'genre': ['Sports','Golf'],
+        'genre': ['Sports', 'Golf'],
         'aired': aired_str,
         'duration': int(duration),
         'mediatype': 'tvshow',
@@ -240,6 +242,9 @@ def router(paramstring):
             except KeyError:
                 videoid = None
             play_video(videoid)
+        elif params['action'] == 'renew':
+            api.get_token()
+            api.store_token_settings()
         else:
             # If the provided paramstring does not contain a supported action
             # we raise an exception. This helps to catch coding errors,

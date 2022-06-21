@@ -4,7 +4,7 @@
         <setting label="site" type="text" id="site" default="liv-golf" visible="false"/>
         <setting label="device_type" type="text" id="device_type" default="web_browser" visible="false"/>
     </category>
-        <category label="Token">
+        <category label="Token Information">
         <setting label="token" type="text" id="token" default="" visible="false"/>
         <setting label="Issue date:" type="date" id="issue_date" default="" visible="true"/>
         <setting label="Issue time:" type="time" id="issue_time" default="" visible="true"/>
@@ -14,5 +14,6 @@
         <setting label="IP Address:" type="ipaddress" id="ip" default="" visible="true"/>
         <setting label="Country code:" type="text" id="country_code" default="" visible="true"/>
         <setting label="Postal Code:" type="number" id="postal_code" default="" visible="true"/>
+        <setting label="Renew Token" type="action" id="renew" action="RunPlugin(plugin://plugin.video.livgolf/?action=renew)" option="close"/>
     </category>
 </settings>
