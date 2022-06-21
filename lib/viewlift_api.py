@@ -103,6 +103,7 @@ class ViewliftAPI:
             self.store_token_settings()
             expire_epoch = self.plugin.get_setting('expire_epoch')
         if int(time.time()) < expire_epoch:
+            print('hier')
             return True
         else:
             return False
