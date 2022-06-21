@@ -69,12 +69,16 @@ class ViewliftAPI:
         result = self.api_get(url, params)
         return result
 
-    def store_date_time(self, date_setting, time_setting, unix_time):
+    def store_date_time(self, unix_time, is_expire):
         local_time = time.localtime(unix_time)
         store_date = time.strftime("%Y-%m-%d", local_time)
         store_time = time.strftime("%H:%M:%S", local_time)
-        self.plugin.set_setting(date_setting, store_date)
-        self.plugin.set_setting(time_setting, store_time)
+        if is_expire:
+            self.plugin.set_setting('expire_date', store_date)
+            self.plugin.set_setting('expire_time', store_time)
+        else:
+            self.plugin.set_setting('issue_date', store_date)
+            self.plugin.set_setting('issue_time', store_time)
         return True
 
     def store_token_settings(self):
@@ -85,8 +89,8 @@ class ViewliftAPI:
         val = str_decoded_token.split('{', 1)[1].split('}')[1] + '}'
         json_token = json.loads(val, strict=False)
         print(json_token)
-        self.store_date_time('issue_date', 'issue_time', self.plugin.get_dict_value(json_token, 'iat'))
-        self.store_date_time('expire_date', 'expire_time', self.plugin.get_dict_value(json_token, 'exp'))
+        self.store_date_time(self.plugin.get_dict_value(json_token, 'iat'), False)
+        self.store_date_time(self.plugin.get_dict_value(json_token, 'exp'), True)
         self.plugin.set_setting('ip', self.plugin.get_dict_value(json_token, 'ipaddress'))
         return True
 
