@@ -101,5 +101,5 @@ class ViewliftAPI:
         expire_time = self.plugin.get_setting('expire_time')
         if expire_date == '' or expire_time == '':
             self.store_token_settings()
-        print(get_datetime_now)
+        print(self.plugin.get_datetime_now)
         return True
