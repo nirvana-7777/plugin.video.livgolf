@@ -85,9 +85,9 @@ class ViewliftAPI:
         token = self.plugin.get_setting('token')
         print(token)
         #token += '=' * (-len(token) % 4)  # restore stripped '='s
-        token = token + b'=='
-        print(token)
-        decoded_token = b64decode(token)
+        #token = token + b'=='
+        #print(token)
+        decoded_token = b64decode(token + b'==')
         str_decoded_token = str(decoded_token)
         val = str_decoded_token.split('{', 1)[1].split('}')[1] + '}'
         json_token = json.loads(val, strict=False)
