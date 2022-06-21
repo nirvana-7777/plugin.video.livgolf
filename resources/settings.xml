@@ -14,6 +14,9 @@
         <setting label="IP Address:" type="ipaddress" id="ip" default="" visible="true"/>
         <setting label="Country code:" type="text" id="country_code" default="" visible="true"/>
         <setting label="Postal Code:" type="number" id="postal_code" default="" visible="true"/>
+    </category>
+    </category>
+        <category label="Renew Token">
         <setting label="Renew Token" type="action" id="renew" action="RunPlugin(plugin://plugin.video.livgolf/?action=renew)" option="close"/>
     </category>
 </settings>
