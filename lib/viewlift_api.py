@@ -93,6 +93,7 @@ class ViewliftAPI:
         padded = token + "=" * divmod(len(token), 4)[1]
         print(padded)
         decoded_token = base64.urlsafe_b64decode(padded)
+        print(decoded_token)
         str_decoded_token = str(decoded_token)
         val = str_decoded_token.split('{', 1)[1].split('}')[1] + '}'
         json_token = json.loads(val, strict=False)
