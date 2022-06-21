@@ -8,7 +8,7 @@
         <setting label="token" type="text" id="token" default="" visible="false"/>
         <setting label="Issue date:" type="date" id="issue_date" default="" visible="true"/>
         <setting label="Issue time:" type="time" id="issue_time" default="" visible="true"/>
-        <setting label="Expire epoch:" type="number" id="expire_epoch" default="" visible="false"/>
+        <setting label="Expire epoch:" type="number" id="expire_epoch" default="0" visible="false"/>
         <setting label="Expire date:" type="date" id="expire_date" default="" visible="true"/>
         <setting label="Expire time:" type="time" id="expire_time" default="" visible="true"/>
         <setting label="IP Address:" type="ipaddress" id="ip" default="" visible="true"/>
