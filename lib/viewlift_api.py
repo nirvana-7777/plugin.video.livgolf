@@ -91,7 +91,7 @@ class ViewliftAPI:
         self.store_date_time(self.plugin.get_dict_value(json_token, 'iat'), False)
         expire_epoch = self.plugin.get_dict_value(json_token, 'exp')
         self.store_date_time(expire_epoch, True)
-        self.plugin.set_setting('expire_epoch', int(expire_epoch))
+        self.plugin.set_setting('expire_epoch', expire_epoch)
         self.plugin.set_setting('ip', self.plugin.get_dict_value(json_token, 'ipaddress'))
         self.plugin.set_setting('country_code', self.plugin.get_dict_value(json_token, 'countryCode'))
         self.plugin.set_setting('postal_code', self.plugin.get_dict_value(json_token, 'postalcode'))
