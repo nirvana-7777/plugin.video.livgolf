@@ -4,7 +4,7 @@ import urllib.request
 import htmlement
 import re
 import time
-from base64 import b64decode
+import base64
 
 
 class ViewliftAPI:
@@ -90,7 +90,9 @@ class ViewliftAPI:
         print(modu)
         padding = '=' * modu
         print(padding)
-        decoded_token = b64decode(self.TOKEN + '=' * (len(self.TOKEN) % 4))
+        padded = token + "=" * divmod(len(token), 4)[1]
+        print(padded)
+        decoded_token = base64.urlsafe_b64decode(padded)
         str_decoded_token = str(decoded_token)
         val = str_decoded_token.split('{', 1)[1].split('}')[1] + '}'
         json_token = json.loads(val, strict=False)
