@@ -16,6 +16,6 @@
         <setting label="Postal Code:" type="number" id="postal_code" default="" visible="true"/>
     </category>
     <category label="Renew Token">
-        <setting label="Renew Token" type="action" id="renew" action="RunPlugin(plugin://plugin.video.livgolf/?action=renew)" option="close"/>
+        <setting label="Renew Token" type="action" id="renew" action="RunPlugin(plugin://plugin.video.livgolf/?action=renew)"/>
     </category>
 </settings>
