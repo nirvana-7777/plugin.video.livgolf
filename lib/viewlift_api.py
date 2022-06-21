@@ -89,16 +89,20 @@ class ViewliftAPI:
         val = str_decoded_token.split('{', 1)[1].split('}')[1] + '}'
         json_token = json.loads(val, strict=False)
         self.store_date_time(self.plugin.get_dict_value(json_token, 'iat'), False)
-        self.store_date_time(self.plugin.get_dict_value(json_token, 'exp'), True)
+        expire_epoch = self.plugin.get_dict_value(json_token, 'exp')
+        self.store_date_time(expire_epoch, True)
+        self.plugin.set_setting('expire_epoch', expire_epoch)
         self.plugin.set_setting('ip', self.plugin.get_dict_value(json_token, 'ipaddress'))
         self.plugin.set_setting('country_code', self.plugin.get_dict_value(json_token, 'countryCode'))
         self.plugin.set_setting('postal_code', self.plugin.get_dict_value(json_token, 'postalcode'))
         return True
 
     def is_token_valid(self):
-        expire_date = self.plugin.get_setting('expire_date')
-        expire_time = self.plugin.get_setting('expire_time')
-        if expire_date == '' or expire_time == '':
+        expire_epoch = self.plugin.get_setting('expire_epoch')
+        if expire_epoch == '':
             self.store_token_settings()
-        print(int(time.time()))
-        return True
+            expire_epoch = self.plugin.get_setting('expire_epoch')
+        if int(time.time()) < expire_epoch:
+            return True
+        else:
+            return False
