@@ -243,7 +243,9 @@ def router(paramstring):
                 videoid = None
             play_video(videoid)
         elif params['action'] == 'renew':
+            print('before' + api.TOKEN)
             api.get_token()
+            print('after' + api.TOKEN)
             api.store_token_settings()
         else:
             # If the provided paramstring does not contain a supported action
