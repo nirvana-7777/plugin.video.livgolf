@@ -4,7 +4,6 @@ import urllib.request
 import htmlement
 import re
 import time
-#import base64
 import jwt
 
 
@@ -44,7 +43,6 @@ class ViewliftAPI:
         result = self.api_get(url, params)
         if result is not None:
             new_token = result['authorizationToken']
-            print(new_token)
             self.TOKEN = new_token
             self.plugin.set_setting('token', new_token)
         return result
@@ -86,27 +84,9 @@ class ViewliftAPI:
 
     def store_token_settings(self):
         token = self.plugin.get_setting('token')
-#        print('setting'+token)
-#        laenge = len(self.TOKEN)
-#        print(laenge)
-#        modu = laenge % 4
-#        print(modu)
-#        padding = '=' * modu
-#        print(padding)
-#        padded = token + "=" * divmod(len(token), 4)[1]
-#        print(padded)
-#        header = jwt.get_unverified_header(token)
-#        print(header)
         payload = jwt.decode(token, verify=False)
-        print(payload)
-#        decoded_token = base64.urlsafe_b64decode(padded)
-#        print(decoded_token)
-#        str_decoded_token = str(decoded_token)
-#        val = str_decoded_token.split('{', 1)[1].split('}')[1] + '}'
         json_token = json.loads(json.dumps(payload))
-        print(json_token)
         issued_epoch = self.plugin.get_dict_value(json_token, 'iat')
-        print(issued_epoch)
         self.store_date_time(int(issued_epoch), False)
         expire_epoch = self.plugin.get_dict_value(json_token, 'exp')
         self.store_date_time(int(expire_epoch), True)
