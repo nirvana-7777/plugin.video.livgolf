@@ -103,7 +103,7 @@ class ViewliftAPI:
 #        print(decoded_token)
 #        str_decoded_token = str(decoded_token)
 #        val = str_decoded_token.split('{', 1)[1].split('}')[1] + '}'
-        json_token = json.dumps(payload)
+        json_token = json.loads(json.dumps(payload))
         print(json_token)
         issued_epoch = json_token['iat']
         print(issued_epoch)
