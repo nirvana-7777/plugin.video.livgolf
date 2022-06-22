@@ -5,6 +5,7 @@ import htmlement
 import re
 import time
 import base64
+import jwt
 
 
 class ViewliftAPI:
@@ -94,6 +95,9 @@ class ViewliftAPI:
         print(padding)
         padded = token + "=" * divmod(len(token), 4)[1]
         print(padded)
+        header = jwt.get_unverified_header(token)
+        print(header)
+        print(header['kid'])
         decoded_token = base64.urlsafe_b64decode(padded)
         print(decoded_token)
         str_decoded_token = str(decoded_token)
