@@ -43,6 +43,7 @@ class ViewliftAPI:
         result = self.api_get(url, params)
         if result is not None:
             new_token = result['authorizationToken']
+            print(new_token)
             self.TOKEN = new_token
             self.plugin.set_setting('token', new_token)
         return result
