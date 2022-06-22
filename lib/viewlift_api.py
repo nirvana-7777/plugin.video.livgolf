@@ -4,7 +4,7 @@ import urllib.request
 import htmlement
 import re
 import time
-import jwt
+import pyjwt
 
 
 class ViewliftAPI:
