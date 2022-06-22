@@ -6,7 +6,8 @@ Any trademarks used belong to their owning companies & organisations.
 
 ## Dependencies
  * script.module.inputstreamhelper (https://mirrors.kodi.tv/addons/matrix/script.module.inputstreamhelper/)
- * script.mudule.htmlement (https://mirrors.kodi.tv/addons/matrix/script.module.htmlement/)
+ * script.module.htmlement (https://mirrors.kodi.tv/addons/matrix/script.module.htmlement/)
+ * script.module.pyjwt (https://mirrors.kodi.tv/addons/matrix/script.module.pyjwt/)
  
 This add-on requires Kodi 19 - Matrix or higher with InputStream Adaptive installed.
 
