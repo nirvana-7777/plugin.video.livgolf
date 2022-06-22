@@ -84,7 +84,7 @@ class ViewliftAPI:
 
     def store_token_settings(self):
         token = self.plugin.get_setting('token')
-        payload = jwt.decode(token, verify=False)
+        payload = pyjwt.decode(token, verify=False)
         json_token = json.loads(json.dumps(payload))
         issued_epoch = self.plugin.get_dict_value(json_token, 'iat')
         self.store_date_time(int(issued_epoch), False)
