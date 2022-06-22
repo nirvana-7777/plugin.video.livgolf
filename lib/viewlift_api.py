@@ -97,6 +97,7 @@ class ViewliftAPI:
         self.plugin.set_setting('anonymous_id', self.plugin.get_dict_value(json_token, 'anonymousId'))
         self.plugin.set_setting('user_id', self.plugin.get_dict_value(json_token, 'userId'))
         self.plugin.set_setting('device_id', self.plugin.get_dict_value(json_token, 'deviceId'))
+        self.plugin.set_setting('username', self.plugin.get_dict_value(json_token, 'username'))
         return True
 
     def is_token_valid(self):

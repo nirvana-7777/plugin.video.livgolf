@@ -13,10 +13,11 @@
         <setting label="Expire time:" type="time" id="expire_time" default="" visible="true"/>
         <setting label="IP Address:" type="ipaddress" id="ip" default="" visible="true"/>
         <setting label="Country code:" type="text" id="country_code" default="" visible="true"/>
+        <setting label="Postal code:" type="text" id="postal_code" default="" visible="true"/>
         <setting label="Anonymous ID:" type="text" id="anonymous_id" default="" visible="true"/>
         <setting label="User ID:" type="text" id="user_id" default="" visible="true"/>
         <setting label="Device ID:" type="text" id="device_id" default="" visible="true"/>
-
+        <setting label="Username:" type="text" id="username" default="" visible="true"/>
     </category>
     <category label="Renew Token">
         <setting label="Renew Token" type="action" id="renew" action="RunPlugin(plugin://plugin.video.livgolf/?action=renew)"/>
