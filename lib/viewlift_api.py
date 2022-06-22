@@ -94,6 +94,9 @@ class ViewliftAPI:
         self.plugin.set_setting('ip', self.plugin.get_dict_value(json_token, 'ipaddress'))
         self.plugin.set_setting('country_code', self.plugin.get_dict_value(json_token, 'countryCode'))
         self.plugin.set_setting('postal_code', self.plugin.get_dict_value(json_token, 'postalcode'))
+        self.plugin.set_setting('anonymous_id', self.plugin.get_dict_value(json_token, 'anonymousId'))
+        self.plugin.set_setting('user_id', self.plugin.get_dict_value(json_token, 'userId'))
+        self.plugin.set_setting('device_id', self.plugin.get_dict_value(json_token, 'deviceId'))
         return True
 
     def is_token_valid(self):
