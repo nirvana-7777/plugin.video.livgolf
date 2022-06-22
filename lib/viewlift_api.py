@@ -105,7 +105,9 @@ class ViewliftAPI:
 #        val = str_decoded_token.split('{', 1)[1].split('}')[1] + '}'
         json_token = json.dumps(payload)
         print(json_token)
-        self.store_date_time(int(self.plugin.get_dict_value(json_token, 'iat')), False)
+        issued_epoch = self.plugin.get_dict_value(json_token, 'iat')
+        print(issued_epoch)
+        self.store_date_time(int(issued_epoch), False)
         expire_epoch = self.plugin.get_dict_value(json_token, 'exp')
         self.store_date_time(int(expire_epoch), True)
         self.plugin.set_setting('expire_epoch', str(expire_epoch))
