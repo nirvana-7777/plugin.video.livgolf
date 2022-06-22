@@ -38,7 +38,7 @@ class ViewliftAPI:
 
         url = self.viewliftBaseUrl + "identity/anonymous-token"
         params = {
-            'site': 'liv-golf',
+            'site': self.plugin.get_setting('site'),
         }
         result = self.api_get(url, params)
         if result is not None:
