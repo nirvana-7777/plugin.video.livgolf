@@ -86,24 +86,24 @@ class ViewliftAPI:
 
     def store_token_settings(self):
         token = self.plugin.get_setting('token')
-        print('setting'+token)
-        laenge = len(self.TOKEN)
-        print(laenge)
-        modu = laenge % 4
-        print(modu)
-        padding = '=' * modu
-        print(padding)
-        padded = token + "=" * divmod(len(token), 4)[1]
-        print(padded)
-        header = jwt.get_unverified_header(token)
-        print(header)
+#        print('setting'+token)
+#        laenge = len(self.TOKEN)
+#        print(laenge)
+#        modu = laenge % 4
+#        print(modu)
+#        padding = '=' * modu
+#        print(padding)
+#        padded = token + "=" * divmod(len(token), 4)[1]
+#        print(padded)
+#        header = jwt.get_unverified_header(token)
+#        print(header)
         payload = jwt.decode(token, verify=False)
-        print(payload)
-        decoded_token = base64.urlsafe_b64decode(padded)
-        print(decoded_token)
-        str_decoded_token = str(decoded_token)
-        val = str_decoded_token.split('{', 1)[1].split('}')[1] + '}'
-        json_token = json.loads(val, strict=False)
+#        print(payload)
+#        decoded_token = base64.urlsafe_b64decode(padded)
+#        print(decoded_token)
+#        str_decoded_token = str(decoded_token)
+#        val = str_decoded_token.split('{', 1)[1].split('}')[1] + '}'
+        json_token = json.loads(payload, strict=False)
         self.store_date_time(self.plugin.get_dict_value(json_token, 'iat'), False)
         expire_epoch = self.plugin.get_dict_value(json_token, 'exp')
         self.store_date_time(expire_epoch, True)
