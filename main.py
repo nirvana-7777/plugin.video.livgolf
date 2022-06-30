@@ -246,6 +246,8 @@ def router(paramstring):
         elif params['action'] == 'renew':
             api.get_token()
             api.store_token_settings()
+        elif params['action'] == 'none':
+            pass
         else:
             # If the provided paramstring does not contain a supported action
             # we raise an exception. This helps to catch coding errors,
