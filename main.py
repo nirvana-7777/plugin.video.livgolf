@@ -76,7 +76,7 @@ def get_categories(filter):
                         paragraph_content = plugin.get_dict_value(paragraph, 'content')
                         for text_content in paragraph_content:
                             if plugin.get_dict_value(text_content, 'nodeType') == 'text':
-                                text += ' - ' + plugin.get_dict_value(paragraph_content, 'value')
+                                text += ' - ' + plugin.get_dict_value(text_content, 'value')
                 categories.append(text)
     return categories
 
