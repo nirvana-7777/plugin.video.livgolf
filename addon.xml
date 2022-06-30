@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.livgolf" version="0.2.4" name="LIV Golf" provider-name="Nirvana">
+<addon id="plugin.video.livgolf" version="0.2.5" name="LIV Golf" provider-name="Nirvana">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.inputstreamhelper" version="0.5.0"/>
@@ -21,6 +21,7 @@
             - Version 0.1.0: Prepare Live Coverage Information
             - Version 0.2.3: Display Token Information
             - Version 0.2.4: Fix Announcement
+            - Version 0.2.5: Fix Live Coverage
         </news>
         <assets>
             <icon>resources/icon.png</icon>
