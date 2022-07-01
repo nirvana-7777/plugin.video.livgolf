@@ -94,6 +94,10 @@ def list_categories():
     texts = get_categories('componentIntro')
     for text in texts:
         list_item = xbmcgui.ListItem(label=text)
+        list_item.setInfo('video', {'title': text,
+                                    'plot': text,
+                                    'genre': ['Sports', 'Golf'],
+                                    'mediatype': 'video'})
         url = get_url(action='none')
         xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, False)
     # Get video categories
@@ -103,7 +107,7 @@ def list_categories():
         # Create a list item with a text label and a thumbnail image.
         list_item = xbmcgui.ListItem(label=category)
         list_item.setInfo('video', {'title': category,
-                                    'genre': category,
+                                    'genre': ['Sports', 'Golf'],
                                     'mediatype': 'video'})
         # Create a URL for a plugin recursive call.
         # Example: plugin://plugin.video.example/?action=listing&category=Animals
