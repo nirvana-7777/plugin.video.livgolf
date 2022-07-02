@@ -92,12 +92,15 @@ def list_categories():
     # for this type of content.
     xbmcplugin.setContent(_HANDLE, 'videos')
     texts = get_categories('componentIntro')
+    art = {'thumb': os.path.join(ADDON.getAddonInfo('path'), 'resources', 'LIVGOLF_logo.png'),
+           'icon': os.path.join(ADDON.getAddonInfo('path'), 'resources', 'icon.png')}
     for text in texts:
         list_item = xbmcgui.ListItem(label=text)
         list_item.setInfo('video', {'title': text,
                                     'plot': text,
                                     'genre': ['Sports', 'Golf'],
                                     'mediatype': 'video'})
+        list_item.setArt(art)
         url = get_url(action='none')
         xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, False)
     # Get video categories
@@ -109,6 +112,7 @@ def list_categories():
         list_item.setInfo('video', {'title': category,
                                     'genre': ['Sports', 'Golf'],
                                     'mediatype': 'video'})
+        list_item.setArt(art)
         # Create a URL for a plugin recursive call.
         # Example: plugin://plugin.video.example/?action=listing&category=Animals
         url = get_url(action='listing', category=category)
