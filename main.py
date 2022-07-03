@@ -93,8 +93,8 @@ def list_categories():
     # for this type of content.
     xbmcplugin.setContent(_HANDLE, 'videos')
     texts = get_categories('componentIntro')
-    art = {'thumb': os.path.join(ADDON.getAddonInfo('path'), 'resources', 'LIVGOLF_logo.png'),
-           'icon': os.path.join(ADDON.getAddonInfo('path'), 'resources', 'icon.png')}
+    art = {'thumb': os.path.join(addon.getAddonInfo('path'), 'resources', 'LIVGOLF_logo.png'),
+           'icon': os.path.join(addon.getAddonInfo('path'), 'resources', 'icon.png')}
     for text in texts:
         list_item = xbmcgui.ListItem(label=text)
         list_item.setInfo('video', {'title': text,
