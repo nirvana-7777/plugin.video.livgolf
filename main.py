@@ -219,6 +219,7 @@ def play_video(videoid):
         'duration': int(duration),
         'mediatype': 'tvshow',
     }
+    print('URL:' + video_url)
     playitem = xbmcgui.ListItem(label=title, path=video_url)
     playitem.setInfo('video', metadata)
     playitem.setArt({'thumb': image})
