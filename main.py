@@ -241,8 +241,6 @@ def play_video(videoid):
                                     'LIVGOLF_logo.png'),
            'clearlogo': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources',
                                      'icon.png'),
-           'poster': image,
-           'fanart': image,
            'thumb': image}
     playitem.setArt(art)
     if video_property == 'hls':
