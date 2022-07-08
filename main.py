@@ -94,7 +94,7 @@ def list_categories():
         for block in blocks:
             content = plugin.get_dict_value(block, 'content')
             bgimage = plugin.get_dict_value(content, 'backgroundImage')
-            if bgimage is not None:
+            if bgimage != '':
                 bgimageurl = plugin.get_dict_value(bgimage, 'src')
                 print(bgimageurl)
     xbmcplugin.setPluginCategory(_HANDLE, 'Livgolf video categories')
