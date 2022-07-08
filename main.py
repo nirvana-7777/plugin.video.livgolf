@@ -212,12 +212,12 @@ def play_video(videoid):
     local_time = time.localtime(unix_timestamp)
     aired_str = time.strftime("%Y-%m-%d %H:%M:%S", local_time)
     metadata = {
-        'plot': description.strip(),
+        'plot': description.replace('<br>', ''),
         'title': title.strip(),
         'genre': ['Sports', 'Golf'],
         'aired': aired_str,
         'duration': int(duration),
-        'mediatype': 'tvshow',
+        'mediatype': 'video',
     }
     playitem = xbmcgui.ListItem(label=title, path=video_url.strip())
     playitem.setInfo('video', metadata)
