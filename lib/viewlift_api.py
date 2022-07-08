@@ -9,6 +9,7 @@ import pyjwt
 
 class ViewliftAPI:
     viewliftBaseUrl = "https://prod-api.viewlift.com/"
+    lifgolfurl = "https://www.livgolf.com"
     session = requests.Session()
 
     def __init__(self, plugin):
@@ -48,9 +49,9 @@ class ViewliftAPI:
         return result
 
     @staticmethod
-    def get_next_data():
+    def get_next_data(page):
 
-        response = urllib.request.urlopen("https://www.livgolf.com/watch").read()
+        response = urllib.request.urlopen(livgolfurl + page).read()
         htmlstr = response.decode("utf8")
         root = htmlement.fromstring(htmlstr)
         result = None

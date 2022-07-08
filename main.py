@@ -63,7 +63,7 @@ def get_categories(filter):
     :rtype: types.GeneratorType
     """
     categories = []
-    next_data = api.get_next_data()
+    next_data = api.get_next_data('/watch')
     if next_data is not None:
         blocks = next_data['props']['pageProps']['blocks']
         for block in blocks:
@@ -88,6 +88,15 @@ def list_categories():
     """
     # Set plugin category. It is displayed in some skins as the name
     # of the current section.
+    next_data = api.get_next_data('')
+    if next_data is not None:
+        blocks = next_data['props']['pageProps']['blocks']
+        for block in blocks:
+            content = plugin.get_dict_value(block, 'content')
+            bgimage = plugin.get_dict_value(content, 'backgroundImage')
+            if bgimage is not None:
+                bgimageurl = plugin.get_dict_value(bgimage, 'src')
+                print(bgimageurl)
     xbmcplugin.setPluginCategory(_HANDLE, 'Livgolf video categories')
     # Set plugin content. It allows Kodi to select appropriate views
     # for this type of content.
@@ -139,7 +148,7 @@ def list_videos(category):
     xbmcplugin.setContent(_HANDLE, 'videos')
     # Get the list of videos in the category.
     # Iterate through videos.
-    next_data = api.get_next_data()
+    next_data = api.get_next_data('/watch')
     if next_data is not None:
         blocks = next_data['props']['pageProps']['blocks']
         for block in blocks:
@@ -217,7 +226,7 @@ def play_video(videoid):
         'genre': ['Sports', 'Golf'],
         'aired': aired_str,
         'duration': int(duration),
-        'mediatype': 'video',
+        'mediatype': 'tvshow',
     }
     playitem = xbmcgui.ListItem(label=title, path=video_url.strip())
     playitem.setInfo('video', metadata)
