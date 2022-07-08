@@ -102,8 +102,8 @@ def list_categories():
     # for this type of content.
     xbmcplugin.setContent(_HANDLE, 'videos')
     texts = get_categories('componentIntro')
-    art = {'thumb': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'LIVGOLF_logo.png'),
-           'icon': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'icon.png')}
+    art = {'clearart': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'LIVGOLF_logo.png'),
+           'clearlogo': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'icon.png')}
     if bgimageurl != '':
         art['fanart'] = bgimageurl
         art['poster'] = bgimageurl
