@@ -178,9 +178,13 @@ def list_videos(category):
                             list_item.setProperty('IsPlayable', 'true')
                             list_item.setInfo('video', metadata)
                             image = video['teaserImage']['src']
-                            list_item.setArt({'thumb': image,
-                                              'icon': image,
-                                              'fanart': image})
+                            art = {'clearart': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources',
+                                                            'LIVGOLF_logo.png'),
+                                   'clearlogo': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources',
+                                                             'icon.png'),
+                                   'poster': image,
+                                   'fanart': image}
+                            list_item.setArt(art)
                             url = get_url(action='play', videoid=plugin.get_dict_value(video, 'videoId'))
                             is_folder = False
                             # Add our item to the Kodi virtual folder listing.
