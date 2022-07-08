@@ -237,7 +237,14 @@ def play_video(videoid):
     }
     playitem = xbmcgui.ListItem(label=title, path=video_url.strip())
     playitem.setInfo('video', metadata)
-    playitem.setArt({'thumb': image})
+    art = {'clearart': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources',
+                                    'LIVGOLF_logo.png'),
+           'clearlogo': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources',
+                                     'icon.png'),
+           'poster': image,
+           'fanart': image,
+           'thumb': image}
+    playitem.setArt(art)
     if video_property == 'hls':
         playitem.setProperty('inputstream', 'inputstream.adaptive')
         playitem.setProperty('inputstream.adaptive.manifest_type', video_property)
