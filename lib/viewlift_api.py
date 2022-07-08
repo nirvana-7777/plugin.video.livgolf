@@ -9,7 +9,7 @@ import pyjwt
 
 class ViewliftAPI:
     viewliftBaseUrl = "https://prod-api.viewlift.com/"
-    lifgolfurl = "https://www.livgolf.com"
+    livgolfurl = "https://www.livgolf.com"
     session = requests.Session()
 
     def __init__(self, plugin):
@@ -48,7 +48,8 @@ class ViewliftAPI:
             self.plugin.set_setting('token', new_token)
         return result
 
-    def get_next_data(self, page):
+    @staticmethod
+    def get_next_data(page):
 
         response = urllib.request.urlopen(livgolfurl + page).read()
         htmlstr = response.decode("utf8")
