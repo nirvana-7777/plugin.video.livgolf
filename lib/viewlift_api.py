@@ -48,8 +48,7 @@ class ViewliftAPI:
             self.plugin.set_setting('token', new_token)
         return result
 
-    @staticmethod
-    def get_next_data(page):
+    def get_next_data(self, page):
 
         response = urllib.request.urlopen(livgolfurl + page).read()
         htmlstr = response.decode("utf8")
