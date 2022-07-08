@@ -172,7 +172,6 @@ def list_videos(category):
                             metadata['title'] = li_label
                             date = plugin.get_dict_value(video, 'date')
                             if date is not None:
-                                li_label += ' (' + date + ')'
                                 metadata['aired'] = date
                             list_item = xbmcgui.ListItem(label=li_label)
                             list_item.setProperty('IsPlayable', 'true')
