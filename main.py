@@ -88,6 +88,7 @@ def list_categories():
     """
     # Set plugin category. It is displayed in some skins as the name
     # of the current section.
+    bgimageurl = ''
     next_data = api.get_next_data('')
     if next_data is not None:
         blocks = next_data['props']['pageProps']['blocks']
@@ -96,7 +97,6 @@ def list_categories():
             bgimage = plugin.get_dict_value(content, 'backgroundImage')
             if bgimage != '':
                 bgimageurl = plugin.get_dict_value(bgimage, 'src')
-                print(bgimageurl)
     xbmcplugin.setPluginCategory(_HANDLE, 'Livgolf video categories')
     # Set plugin content. It allows Kodi to select appropriate views
     # for this type of content.
@@ -104,6 +104,9 @@ def list_categories():
     texts = get_categories('componentIntro')
     art = {'thumb': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'LIVGOLF_logo.png'),
            'icon': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'icon.png')}
+    if bgimageurl != '':
+        art['fanart'] = bgimageurl
+        art['poster'] = bgimageurl
     for text in texts:
         list_item = xbmcgui.ListItem(label=text)
         list_item.setInfo('video', {'title': text,
