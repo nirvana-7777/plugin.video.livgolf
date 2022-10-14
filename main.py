@@ -63,7 +63,6 @@ def get_categories(filter):
     :rtype: types.GeneratorType
     """
     categories = []
-    categories.append('Refresh')
     next_data = api.get_next_data('/watch')
     if next_data is not None:
         blocks = next_data['props']['pageProps']['blocks']
@@ -102,6 +101,9 @@ def list_categories():
     # Set plugin content. It allows Kodi to select appropriate views
     # for this type of content.
     xbmcplugin.setContent(_HANDLE, 'videos')
+    url = get_url(action='refresh')
+    list_item = xbmcgui.ListItem(label='Refresh')
+    xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, False)
     texts = get_categories('componentIntro')
     art = {'clearart': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'LIVGOLF_logo.png'),
            'clearlogo': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'icon.png')}
