@@ -281,7 +281,7 @@ def router(paramstring):
             api.get_token()
             api.store_token_settings()
         elif params['action'] == 'refresh':
-            pass
+            list_categories()
         elif params['action'] == 'none':
             pass
         else:
