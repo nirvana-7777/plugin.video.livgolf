@@ -63,6 +63,7 @@ def get_categories(filter):
     :rtype: types.GeneratorType
     """
     categories = []
+    categories.append('Refresh')
     next_data = api.get_next_data('/watch')
     if next_data is not None:
         blocks = next_data['props']['pageProps']['blocks']
