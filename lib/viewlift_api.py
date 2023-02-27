@@ -60,6 +60,7 @@ class ViewliftAPI:
             'languageCode': 'default',
             'userState': 'eyJzdGF0ZSI6WyJyZWdpc3RlcmVkIl0sImNvbnRlbnRGaWx0ZXJJZCI6bnVsbH0%3D'
         }
+        print(params)
         result = self.api_get(url, params)
         return result
 
