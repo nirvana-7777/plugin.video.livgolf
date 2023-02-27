@@ -24,11 +24,12 @@ class ViewliftAPI:
             'accept': 'application/json, text/plain, */*',
             'user-agent': self.__user_agent,
             'accept-encoding': 'gzip, deflate, br',
-#            'authorization': self.TOKEN
+            'authorization': self.TOKEN
         }
         response = self.session.get(url, headers=headers, params=params)
         result = None
-        if response.status_code == 200 and response.headers.get('content-type') == "application/json":
+        contenttype = response.headers.get('content-type')
+        if response.status_code == 200 and (contenttype == "application/json" or contenttype == "application/json; charset=utf-8"):
             result = response.json()
         else:
             self.plugin.dialog_ok("Viewlift API Call for " +
