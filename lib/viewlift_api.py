@@ -24,7 +24,7 @@ class ViewliftAPI:
             'accept': 'application/json, text/plain, */*',
             'user-agent': self.__user_agent,
             'accept-encoding': 'gzip, deflate, br',
-            'authorization': self.TOKEN
+#            'authorization': self.TOKEN
         }
         response = self.session.get(url, headers=headers, params=params)
         result = None
