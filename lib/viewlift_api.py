@@ -2,7 +2,7 @@ import requests
 import json
 import urllib.request
 import htmlement
-import re
+#import re
 import time
 import pyjwt
 
@@ -46,6 +46,21 @@ class ViewliftAPI:
             new_token = result['authorizationToken']
             self.TOKEN = new_token
             self.plugin.set_setting('token', new_token)
+        return result
+
+    def get_videos(self, ):
+
+        url = self.viewliftBaseUrl + "content/pages"
+        params = {
+            'path': '%2F',
+            'site': 'liv-golf',
+            'includeContent': 'true',
+            'moduleOffset': '0',
+            'moduleLimit': '4',
+            'languageCode': 'default',
+            'userState': 'eyJzdGF0ZSI6WyJyZWdpc3RlcmVkIl0sImNvbnRlbnRGaWx0ZXJJZCI6bnVsbH0%3D'
+        }
+        result = self.api_get(url, params)
         return result
 
     def get_next_data(self, page):
