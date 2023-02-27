@@ -48,7 +48,7 @@ class ViewliftAPI:
             self.plugin.set_setting('token', new_token)
         return result
 
-    def get_videos(self, ):
+    def get_videos(self):
 
         url = self.viewliftBaseUrl + "content/pages"
         params = {
