@@ -163,6 +163,15 @@ def list_videos(category):
     xbmcplugin.setContent(_HANDLE, 'videos')
     # Get the list of videos in the category.
     # Iterate through videos.
+    videos = api.get_videos()
+    modules = plugin.get_dict_value(videos, 'modules')
+    for module in modules:
+        if plugin.get_dict_value(module, 'contentType') == 'Video':
+            contendata = plugin.get_dict_value(module, 'contentData')
+            for content in contendata:
+                id = plugin.get_dict_value(content, 'id')
+                print("VideoID:" + id)
+    """
     next_data = api.get_next_data('/watch')
     if next_data is not None:
         blocks = next_data['props']['pageProps']['blocks']
@@ -202,6 +211,7 @@ def list_videos(category):
                             xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, is_folder)
     # Add a sort method for the virtual folder items (alphabetically, ignore articles)
     # xbmcplugin.addSortMethod(_HANDLE, xbmcplugin.SORT_METHOD_LABEL_IGNORE_THE)
+    """
     # Finish creating a virtual folder.
     xbmcplugin.endOfDirectory(_HANDLE)
 
