@@ -171,7 +171,29 @@ def list_videos(category):
             for content in contendata:
                 gist = plugin.get_dict_value(content, 'gist')
                 id = plugin.get_dict_value(gist, 'id')
-                print("VideoID:" + id)
+                metadata = {
+                    'mediatype': 'video',
+                    'genre': ['Sports', 'Golf']
+                }
+                li_label = plugin.get_dict_value(gist, 'title')
+                metadata['title'] = li_label
+                date = plugin.get_dict_value(gist, 'publishDate')
+                if date is not None:
+                    metadata['aired'] = date
+                list_item = xbmcgui.ListItem(label=li_label)
+                list_item.setProperty('IsPlayable', 'true')
+                list_item.setInfo('video', metadata)
+                image = plugin.get_dict_value(gist, 'videoImageUrl')
+                art = {'clearart': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'LIVGOLF_logo.png'),
+                        'clearlogo': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'icon.png'),
+                        'poster': image,
+                        'fanart': image}
+                list_item.setArt(art)
+                url = get_url(action='play', videoid=id)
+                is_folder = False
+                # Add our item to the Kodi virtual folder listing.
+                xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, is_folder)
+
     """
     next_data = api.get_next_data('/watch')
     if next_data is not None:
