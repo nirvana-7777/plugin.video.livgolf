@@ -11,7 +11,7 @@ import xbmc
 import xbmcgui
 import xbmcplugin
 import xbmcaddon
-import posixpath
+#import posixpath
 import time
 import os
 from lib.viewlift_api import ViewliftAPI
@@ -51,7 +51,7 @@ def get_url(**kwargs):
     return '{}?{}'.format(_URL, urlencode(kwargs))
 
 
-def get_categories(filter):
+def get_categories():
     """
     Get the list of video categories.
     Here you can insert some parsing code that retrieves
@@ -62,7 +62,8 @@ def get_categories(filter):
     :return: The list of video categories
     :rtype: types.GeneratorType
     """
-    categories = []
+    categories = ["LivGolf", "LivGolfPlus"]
+    """
     next_data = api.get_next_data('/watch')
     if next_data is not None:
         blocks = next_data['props']['pageProps']['blocks']
@@ -79,6 +80,7 @@ def get_categories(filter):
                             if plugin.get_dict_value(text_content, 'nodeType') == 'text':
                                 text += ' - ' + plugin.get_dict_value(text_content, 'value')
                 categories.append(text)
+    """
     return categories
 
 
@@ -88,8 +90,10 @@ def list_categories():
     """
     # Set plugin category. It is displayed in some skins as the name
     # of the current section.
-    videos = api.get_videos()
-    print(videos)
+#    videos = api.get_videos()
+#    print(videos)
+
+    """
     bgimageurl = ''
     next_data = api.get_next_data('')
     if next_data is not None:
@@ -107,8 +111,6 @@ def list_categories():
     list_item = xbmcgui.ListItem(label='Refresh')
     xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, False)
     texts = get_categories('componentIntro')
-    art = {'clearart': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'LIVGOLF_logo.png'),
-           'clearlogo': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'icon.png')}
     if bgimageurl != '':
         art['fanart'] = bgimageurl
         art['poster'] = bgimageurl
@@ -121,8 +123,13 @@ def list_categories():
         list_item.setArt(art)
         url = get_url(action='none')
         xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, False)
+    """
+
+    art = {'clearart': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'LIVGOLF_logo.png'),
+           'clearlogo': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'icon.png')}
+
     # Get video categories
-    categories = get_categories('componentVideos')
+    categories = get_categories()
     # Iterate through categories
     for category in categories:
         # Create a list item with a text label and a thumbnail image.
@@ -138,7 +145,7 @@ def list_categories():
         is_folder = True
         # Add our item to the Kodi virtual folder listing.
         xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, is_folder)
-    # Finish creating a virtual folder.
+        # Finish creating a virtual folder.
     xbmcplugin.endOfDirectory(_HANDLE)
 
 
