@@ -181,7 +181,7 @@ def list_videos(category):
                 metadata['duration'] = plugin.get_dict_value(gist, 'runtime')
                 date = plugin.get_dict_value(gist, 'publishDate')
                 if date is not None:
-                    metadata['aired'] = plugin.get_datetime_from_epoch(date)
+                    metadata['aired'] = plugin.get_datetime_from_epoch_plain(date)
                 list_item = xbmcgui.ListItem(label=li_label)
                 list_item.setProperty('IsPlayable', 'true')
                 list_item.setInfo('video', metadata)
