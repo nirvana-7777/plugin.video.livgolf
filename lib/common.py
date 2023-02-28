@@ -229,7 +229,7 @@ class Common():
         return date
 
     def get_datetime_from_epoch_plain(self, timestamp):
-        return datetime.fromtimestamp(timestamp).strftime('%Y-%m-%dT%H:%M')
+        return datetime.fromtimestamp(int(timestamp)/1000).strftime('%Y-%m-%dT%H:%M')
 
     def get_datetime_from_epoch(self, timestamp):
         TimestampUtc = re.split('\(|\)', timestamp)[1][:10]
