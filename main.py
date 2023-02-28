@@ -170,13 +170,15 @@ def list_videos(category):
             contendata = plugin.get_dict_value(module, 'contentData')
             for content in contendata:
                 gist = plugin.get_dict_value(content, 'gist')
-                id = plugin.get_dict_value(gist, 'id')
+                videoid = plugin.get_dict_value(gist, 'id')
                 metadata = {
                     'mediatype': 'video',
                     'genre': ['Sports', 'Golf']
                 }
                 li_label = plugin.get_dict_value(gist, 'title')
                 metadata['title'] = li_label
+                metadata['plot'] = plugin.get_dict_value(gist, 'description')
+                metadata['duration'] = plugin.get_dict_value(gist, 'runtime')
                 date = plugin.get_dict_value(gist, 'publishDate')
                 if date is not None:
                     metadata['aired'] = date
@@ -189,7 +191,7 @@ def list_videos(category):
                         'poster': image,
                         'fanart': image}
                 list_item.setArt(art)
-                url = get_url(action='play', videoid=id)
+                url = get_url(action='play', videoid=videoid)
                 is_folder = False
                 # Add our item to the Kodi virtual folder listing.
                 xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, is_folder)
