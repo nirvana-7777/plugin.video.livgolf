@@ -169,7 +169,8 @@ def list_videos(category):
         if plugin.get_dict_value(module, 'contentType') == 'Video':
             contendata = plugin.get_dict_value(module, 'contentData')
             for content in contendata:
-                id = plugin.get_dict_value(content, 'id')
+                gist = plugin.get_dict_value(content, 'gist')
+                id = plugin.get_dict_value(gist, 'id')
                 print("VideoID:" + id)
     """
     next_data = api.get_next_data('/watch')
