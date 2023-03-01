@@ -218,12 +218,13 @@ def list_videos(category):
                             list_item.setProperty('IsPlayable', 'true')
                             list_item.setInfo('video', metadata)
                             image = plugin.get_dict_value(video, 'thumbnailImageDesktop')
+                            imageurl = plugin.get_dict_value(image, 'url')
                             art = {'clearart': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources',
                                                             'LIVGOLF_logo.png'),
                                    'clearlogo': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources',
                                                             'icon.png'),
-                                   'poster': image,
-                                   'fanart': image}
+                                   'poster': imageurl,
+                                   'fanart': imageurl}
                             list_item.setArt(art)
                             url = get_url(action='play', videoid=plugin.get_dict_value(video, 'viewLiftId'))
                             is_folder = False
