@@ -209,7 +209,7 @@ def list_videos(category):
                                 'mediatype': 'video',
                                 'genre': ['Sports', 'Golf']
                             }
-                            li_label = plugin.get_dict_value(video, 'viedoTitle')
+                            li_label = plugin.get_dict_value(video, 'videoTitle')
                             metadata['title'] = li_label
                             date = plugin.get_dict_value(video, 'videoDate')
                             if date is not None:
