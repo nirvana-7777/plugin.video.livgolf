@@ -162,80 +162,76 @@ def list_videos(category):
     xbmcplugin.setContent(_HANDLE, 'videos')
     # Get the list of videos in the category.
     # Iterate through videos.
-    videos = api.get_videos()
-    modules = plugin.get_dict_value(videos, 'modules')
-    for module in modules:
-        if plugin.get_dict_value(module, 'contentType') == 'Video':
-            contendata = plugin.get_dict_value(module, 'contentData')
-            for content in contendata:
-                gist = plugin.get_dict_value(content, 'gist')
-                videoid = plugin.get_dict_value(gist, 'id')
-                metadata = {
-                    'mediatype': 'video',
-                    'genre': ['Sports', 'Golf']
-                }
-                li_label = plugin.get_dict_value(gist, 'title')
-                metadata['title'] = li_label
-                metadata['plot'] = plugin.get_dict_value(gist, 'description')
-                metadata['duration'] = plugin.get_dict_value(gist, 'runtime')
-                date = plugin.get_dict_value(gist, 'publishDate')
-                if date is not None:
-                    metadata['aired'] = plugin.get_datetime_from_epoch_plain(date)
-                list_item = xbmcgui.ListItem(label=li_label)
-                list_item.setProperty('IsPlayable', 'true')
-                list_item.setInfo('video', metadata)
-                image = plugin.get_dict_value(gist, 'videoImageUrl')
-                art = {'clearart': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'LIVGOLF_logo.png'),
-                        'clearlogo': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'icon.png'),
-                        'poster': image,
-                        'fanart': image}
-                list_item.setArt(art)
-                url = get_url(action='play', videoid=videoid)
-                is_folder = False
-                # Add our item to the Kodi virtual folder listing.
-                xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, is_folder)
-
-    """
-    next_data = api.get_next_data('/watch')
-    if next_data is not None:
-        blocks = next_data['props']['pageProps']['blocks']
-        for block in blocks:
-            if plugin.get_dict_value(block, 'name') == 'componentVideos':
-                content = plugin.get_dict_value(block, 'content')
-                if plugin.get_dict_value(content, 'title') == category:
-                    videos = plugin.get_dict_value(content, 'videos')
+    if category == "LivGolfPlus":
+        videos = api.get_videos()
+        modules = plugin.get_dict_value(videos, 'modules')
+        for module in modules:
+            if plugin.get_dict_value(module, 'contentType') == 'Video':
+                contendata = plugin.get_dict_value(module, 'contentData')
+                for content in contendata:
+                    gist = plugin.get_dict_value(content, 'gist')
+                    videoid = plugin.get_dict_value(gist, 'id')
+                    metadata = {
+                        'mediatype': 'video',
+                        'genre': ['Sports', 'Golf']
+                    }
+                    li_label = plugin.get_dict_value(gist, 'title')
+                    metadata['title'] = li_label
+                    metadata['plot'] = plugin.get_dict_value(gist, 'description')
+                    metadata['duration'] = plugin.get_dict_value(gist, 'runtime')
+                    date = plugin.get_dict_value(gist, 'publishDate')
+                    if date is not None:
+                        metadata['aired'] = plugin.get_datetime_from_epoch_plain(date)
+                    list_item = xbmcgui.ListItem(label=li_label)
+                    list_item.setProperty('IsPlayable', 'true')
+                    list_item.setInfo('video', metadata)
+                    image = plugin.get_dict_value(gist, 'videoImageUrl')
+                    art = {'clearart': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'LIVGOLF_logo.png'),
+                            'clearlogo': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'icon.png'),
+                            'poster': image,
+                            'fanart': image}
+                    list_item.setArt(art)
+                    url = get_url(action='play', videoid=videoid)
+                    is_folder = False
+                    # Add our item to the Kodi virtual folder listing.
+                    xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, is_folder)
+    else:
+        next_data = api.get_next_data('/watch')
+        if next_data is not None:
+            pagedata = next_data['props']['pageProps']['pageData']
+            components = plugin.get_dict_value(pagedata, 'components')
+            for component in components:
+                if plugin.get_dict_value(component, 'heading') == category:
+                    videos = plugin.get_dict_value(component, 'pageArticles')
                     for video in videos:
-                        if plugin.get_dict_value(video, 'componentName') == 'video':
+                        if plugin.get_dict_value(video, '__typename') == 'DataVideo':
                             metadata = {
                                 'mediatype': 'video',
                                 'genre': ['Sports', 'Golf']
                             }
-                            li_label = plugin.get_dict_value(video, 'title')
-                            eyebrow = plugin.get_dict_value(video, 'eyebrow')
-                            if eyebrow is not None and eyebrow != '':
-                                li_label += ' - ' + eyebrow
+                            li_label = plugin.get_dict_value(video, 'viedoTitle')
                             metadata['title'] = li_label
-                            date = plugin.get_dict_value(video, 'date')
+                            date = plugin.get_dict_value(video, 'videoDate')
                             if date is not None:
                                 metadata['aired'] = date
                             list_item = xbmcgui.ListItem(label=li_label)
                             list_item.setProperty('IsPlayable', 'true')
                             list_item.setInfo('video', metadata)
-                            image = video['teaserImage']['src']
+                            image = plugin.get_dict_value(video, 'thumbnailImageDesktop')
                             art = {'clearart': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources',
                                                             'LIVGOLF_logo.png'),
                                    'clearlogo': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources',
-                                                             'icon.png'),
+                                                            'icon.png'),
                                    'poster': image,
                                    'fanart': image}
                             list_item.setArt(art)
-                            url = get_url(action='play', videoid=plugin.get_dict_value(video, 'videoId'))
+                            url = get_url(action='play', videoid=plugin.get_dict_value(video, 'viewLiftId'))
                             is_folder = False
                             # Add our item to the Kodi virtual folder listing.
                             xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, is_folder)
     # Add a sort method for the virtual folder items (alphabetically, ignore articles)
     # xbmcplugin.addSortMethod(_HANDLE, xbmcplugin.SORT_METHOD_LABEL_IGNORE_THE)
-    """
+
     # Finish creating a virtual folder.
     xbmcplugin.endOfDirectory(_HANDLE)
 
