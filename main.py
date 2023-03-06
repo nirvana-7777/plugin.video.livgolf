@@ -16,6 +16,7 @@ import time
 import os
 from lib.viewlift_api import ViewliftAPI
 from lib.common import Common
+from infotagger.listitem import ListItemInfoTag
 
 try:
     import StorageServer
