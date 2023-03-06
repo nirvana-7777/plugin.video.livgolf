@@ -205,6 +205,8 @@ def list_videos(category):
             for component in components:
                 if plugin.get_dict_value(component, 'heading') == category or plugin.get_dict_value(component, 'title') == category:
                     videos = plugin.get_dict_value(component, 'pageArticles')
+                    if videos == "":
+                        videos = plugin.get_dict_value(component, 'media')
                     for video in videos:
                         if plugin.get_dict_value(video, '__typename') == 'DataVideo':
                             metadata = {
