@@ -292,7 +292,8 @@ def play_video(videoid):
         'mediatype': 'tvshow',
     }
     playitem = xbmcgui.ListItem(label=title, path=video_url.strip())
-    playitem.setInfo('video', metadata)
+    info_tag = ListItemInfoTag(playitem, 'video')
+    info_tag.set_info(metadata)
     art = {'clearart': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources',
                                     'LIVGOLF_logo.png'),
            'clearlogo': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources',
@@ -301,7 +302,6 @@ def play_video(videoid):
            'fanart': image,
            'thumb': image}
     playitem.setArt(art)
-    info_tag = ListItemInfoTag(playitem, 'video')
     stream_details = {
         'audio': [{ 'codec': 'aac',
                     'channels': 2,
@@ -310,8 +310,8 @@ def play_video(videoid):
     if language == "default":
         info_tag.set_stream_details(stream_details)
 #    playitem.addStreamInfo('audio', {'codec': 'AAC', 'language': 'eng', 'channels': 2})
-    playitem.addStreamInfo('audio', {'codec': 'aac', 'language': 'en', 'channels': 2})
-    playitem.addStreamInfo('subtitle', {'language': 'en'})
+#    playitem.addStreamInfo('audio', {'codec': 'aac', 'language': 'en', 'channels': 2})
+#    playitem.addStreamInfo('subtitle', {'language': 'en'})
     if video_property == 'hls':
         playitem.setProperty('inputstream', 'inputstream.adaptive')
         playitem.setProperty('inputstream.adaptive.manifest_type', video_property)
