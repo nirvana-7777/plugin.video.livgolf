@@ -203,7 +203,7 @@ def list_videos(category):
             pagedata = next_data['props']['pageProps']['pageData']
             components = plugin.get_dict_value(pagedata, 'components')
             for component in components:
-                if plugin.get_dict_value(component, 'heading') == category:
+                if plugin.get_dict_value(component, 'heading') == category or plugin.get_dict_value(component, 'title') == category:
                     videos = plugin.get_dict_value(component, 'pageArticles')
                     for video in videos:
                         if plugin.get_dict_value(video, '__typename') == 'DataVideo':
