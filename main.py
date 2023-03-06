@@ -300,7 +300,7 @@ def play_video(videoid):
            'fanart': image,
            'thumb': image}
     playitem.setArt(art)
-    info_tag = ListItemInfoTag(playitem, 'audio')
+    info_tag = ListItemInfoTag(playitem, 'video')
     if language == "default":
         info_tag.add_stream_info('audio', { 'language': 'eng' })
     if video_property == 'hls':
