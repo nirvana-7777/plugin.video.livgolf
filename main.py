@@ -70,6 +70,8 @@ def get_categories():
         for component in components:
 #            if plugin.get_dict_value(block, 'name') == filter:
             heading = plugin.get_dict_value(component, 'heading')
+            if heading == "":
+                heading = plugin.get_dict_value(component, 'title')
 #                text = plugin.get_dict_value(content, 'title')
 #                if filter == 'componentIntro':
 #                    teaser = plugin.get_dict_value(content, 'teaser')
