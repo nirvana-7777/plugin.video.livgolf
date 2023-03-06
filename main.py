@@ -299,6 +299,8 @@ def play_video(videoid):
            'fanart': image,
            'thumb': image}
     playitem.setArt(art)
+    if language == "default":
+        playitem.addStreamInfo('audio', { 'language': 'en', 'channels' : 2 })
     if video_property == 'hls':
         playitem.setProperty('inputstream', 'inputstream.adaptive')
         playitem.setProperty('inputstream.adaptive.manifest_type', video_property)
