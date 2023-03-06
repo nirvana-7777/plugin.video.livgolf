@@ -302,7 +302,9 @@ def play_video(videoid):
     playitem.setArt(art)
     info_tag = ListItemInfoTag(playitem, 'video')
     stream_details = {
-        'audio': [{ 'language': 'en' }],
+        'audio': [{ 'codec': 'AAC',
+                    'channels': 2,
+                    'language': 'en' }],
         'subtitle': [{ 'language': 'en' }]}
     if language == "default":
         info_tag.set_stream_details(stream_details)
