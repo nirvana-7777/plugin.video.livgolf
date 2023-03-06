@@ -302,7 +302,7 @@ def play_video(videoid):
     playitem.setArt(art)
     info_tag = ListItemInfoTag(playitem, 'video')
     if language == "default":
-        info_tag.add_stream_info('audio', { 'language': 'eng' })
+        info_tag.add_stream_info('audio', [{ 'language': 'en' }])
     if video_property == 'hls':
         playitem.setProperty('inputstream', 'inputstream.adaptive')
         playitem.setProperty('inputstream.adaptive.manifest_type', video_property)
