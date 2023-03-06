@@ -248,15 +248,15 @@ def play_video(videoid):
     :type videoid: str
     """
     video_details = api.get_video_details(videoid)
-    videoassets = video_details['video']['streamingInfo']['videoAssets']
-    mpeg_url = ''
-    mpeg = plugin.get_dict_value(videoassets, 'mpeg')
-    if mpeg is not None:
-        bitrate = 0
-        for mp4 in mpeg:
-            if plugin.get_dict_value(mp4, 'bitrate') > bitrate:
-                bitrate = plugin.get_dict_value(mp4, 'bitrate')
-                mpeg_url = plugin.get_dict_value(mp4, 'url')
+#    videoassets = video_details['video']['streamingInfo']['videoAssets']
+#    mpeg_url = ''
+#    mpeg = plugin.get_dict_value(videoassets, 'mpeg')
+#    if mpeg is not None:
+#        bitrate = 0
+#        for mp4 in mpeg:
+#            if plugin.get_dict_value(mp4, 'bitrate') > bitrate:
+#                bitrate = plugin.get_dict_value(mp4, 'bitrate')
+#                mpeg_url = plugin.get_dict_value(mp4, 'url')
     #if mpeg_url != '':
     #    video_property = 'mpd'
     #    video_url = mpeg_url
