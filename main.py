@@ -300,7 +300,7 @@ def play_video(videoid):
            'thumb': image}
     playitem.setArt(art)
     if language == "default":
-        playitem.addStreamInfo('audio', { 'language': 'en', 'channels' : 2 })
+        playitem.addStreamInfo('audio', { 'language': 'english' })
     if video_property == 'hls':
         playitem.setProperty('inputstream', 'inputstream.adaptive')
         playitem.setProperty('inputstream.adaptive.manifest_type', video_property)
