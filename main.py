@@ -304,11 +304,11 @@ def play_video(videoid):
     stream_details = {
         'audio': [{ 'codec': 'AAC',
                     'channels': 2,
-                    'language': 'en' }],
-        'subtitle': [{ 'language': 'en' }]}
+                    'language': 'eng' }],
+        'subtitle': [{ 'language': 'eng' }]}
     if language == "default":
         info_tag.set_stream_details(stream_details)
-    playitem.addStreamInfo('audio', {'codec': 'AAC', 'language': 'en', 'channels': 2})
+    playitem.addStreamInfo('audio', {'codec': 'AAC', 'language': 'eng', 'channels': 2})
     if video_property == 'hls':
         playitem.setProperty('inputstream', 'inputstream.adaptive')
         playitem.setProperty('inputstream.adaptive.manifest_type', video_property)
