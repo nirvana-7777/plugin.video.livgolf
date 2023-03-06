@@ -302,8 +302,8 @@ def play_video(videoid):
     playitem.setArt(art)
     info_tag = ListItemInfoTag(playitem, 'video')
     stream_details = {
-        'audio', [{ 'language': 'en' }],
-        'subtitle', [{ 'language': 'en' }]}
+        'audio': [{ 'language': 'en' }],
+        'subtitle': [{ 'language': 'en' }]}
     if language == "default":
         info_tag.set_stream_details(stream_details)
     if video_property == 'hls':
