@@ -199,8 +199,7 @@ def list_videos(category):
                         closedcaptions = plugin.get_dict_value(contentdetails, 'closedCaptions')
                         for closedcaption in closedcaptions:
                             if plugin.get_dict_value(closedcaption, 'format') == "SRT":
-                                subtitles = []
-                                subtitles.append(plugin.get_dict_value(closedcaption, 'url'))
+                                subtitles = [plugin.get_dict_value(closedcaption, 'url')]
                                 list_item.setSubtitles(subtitles)
                                 list_item.addStreamInfo('audio', {'codec': 'aac', 'channels': 2})
                     url = get_url(action='play', videoid=videoid)
