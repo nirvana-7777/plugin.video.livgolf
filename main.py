@@ -198,7 +198,9 @@ def list_videos(category):
                         closedcaptions = plugin.get_dict_value(contentdetails, 'closedCaptions')
                         for closedcaption in closedcaptions:
                             if plugin.get_dict_value(closedcaption, 'format') == "SRT":
-                                list_item.setSubtitles(plugin.get_dict_value(closedcaption, 'url'))
+                                subtitles = []
+                                subtitles.append(plugin.get_dict_value(closedcaption, 'url'))
+                                list_item.setSubtitles(subtitles)
                     url = get_url(action='play', videoid=videoid)
                     is_folder = False
                     # Add our item to the Kodi virtual folder listing.
