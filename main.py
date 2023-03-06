@@ -202,11 +202,6 @@ def list_videos(category):
                                 subtitles = []
                                 subtitles.append(plugin.get_dict_value(closedcaption, 'url'))
                                 list_item.setSubtitles(subtitles)
-                                info_tag = ListItemInfoTag(list_item, 'video')
-                                stream_details = {
-                                    'audio': [{'language': 'en'}],
-                                    'subtitle': [{'language': 'en'}]}
-                                info_tag.set_stream_details(stream_details)
                     url = get_url(action='play', videoid=videoid)
                     is_folder = False
                     # Add our item to the Kodi virtual folder listing.
