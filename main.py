@@ -166,7 +166,9 @@ def list_videos(category):
     # Get the list of videos in the category.
     # Iterate through videos.
     if category == "LivGolfPlus":
-        videos = api.get_videos()
+        videos = api.get_videos(0,0)
+        modulecount = plugin.get_dict_value(videos, 'moduleCount')
+        videos = api.get_videos(0, modulecount)
         modules = plugin.get_dict_value(videos, 'modules')
         for module in modules:
             if plugin.get_dict_value(module, 'contentType') == 'Video':

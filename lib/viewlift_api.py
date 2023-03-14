@@ -49,15 +49,15 @@ class ViewliftAPI:
             self.plugin.set_setting('token', new_token)
         return result
 
-    def get_videos(self):
+    def get_videos(self, offset, limit):
 
         url = self.viewliftBaseUrl + "content/pages"
         params = {
             'path': '/',
             'site': 'liv-golf',
             'includeContent': 'true',
-            'moduleOffset': '0',
-            'moduleLimit': '4',
+            'moduleOffset': offset,
+            'moduleLimit': limit,
             'languageCode': 'default',
             'userState': 'eyJzdGF0ZSI6WyJyZWdpc3RlcmVkIl0sImNvbnRlbnRGaWx0ZXJJZCI6bnVsbH0%3D'
         }
