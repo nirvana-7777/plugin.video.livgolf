@@ -205,7 +205,15 @@ def list_videos(category):
                                 list_item.setSubtitles(subtitles)
                                 list_item.addStreamInfo('audio', {'codec': 'aac', 'channels': 2, 'language': 'english'})
                                 list_item.addStreamInfo('subtitle', {'language': 'english'})
-                    url = get_url(action='play', videoid=videoid)
+                    playable = True
+                    scheduled = plugin.get_dict_value(gist, 'scheduleStartDate')
+                    if scheduled is not None:
+                        if int(scheduled) > plugin.get_datetime_now():
+                            playable = False
+                    if playable:
+                        url = get_url(action='play', videoid=videoid)
+                    else:
+                        url = get_url(action='none')
                     is_folder = False
                     # Add our item to the Kodi virtual folder listing.
                     xbmcplugin.addDirectoryItem(_HANDLE, url, list_item, is_folder)
