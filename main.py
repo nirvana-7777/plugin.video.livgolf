@@ -208,10 +208,8 @@ def list_videos(category):
                     playable = True
                     scheduled = plugin.get_dict_value(gist, 'scheduleStartDate')
                     if scheduled is not None:
-                        print(scheduled)
-                        print(plugin.get_datetime_now())
-                        #if int(scheduled) > plugin.get_datetime_now():
-                         #   playable = False
+                        if int(scheduled) > plugin.get_time_now():
+                            playable = False
                     if playable:
                         url = get_url(action='play', videoid=videoid)
                     else:
