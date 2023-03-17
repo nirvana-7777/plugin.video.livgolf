@@ -289,10 +289,12 @@ def play_video(videoid):
     duration = video_details['video']['gist']['runtime']
     aired = video_details['video']['gist']['publishDate']
     language = video_details['video']['gist']['languageCode']
-    unix_timestamp = aired / 1000
-    utc_time = time.gmtime(unix_timestamp)
-    local_time = time.localtime(unix_timestamp)
-    aired_str = time.strftime("%Y-%m-%d %H:%M:%S", local_time)
+    aired_str = ""
+    if aired is not None:
+        unix_timestamp = aired / 1000
+        utc_time = time.gmtime(unix_timestamp)
+        local_time = time.localtime(unix_timestamp)
+        aired_str = time.strftime("%Y-%m-%d %H:%M:%S", local_time)
     metadata = {
         'plot': description.replace('<br>', ''),
         'title': title.strip(),

@@ -31,6 +31,7 @@
             - Version 0.3.6: Add Subtitles
             - Version 0.3.7: Add more videos in LivGolfPlus
             - Version 0.3.8: Change art
+            - Version 0.3.9: Fix aired
         </news>
         <assets>
             <icon>resources/icon.png</icon>
