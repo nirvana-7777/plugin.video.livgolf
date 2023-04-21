@@ -53,7 +53,7 @@ class ViewliftAPI:
 
         url = self.viewliftBaseUrl + "content/pages"
         params = {
-            'path': '/',
+            'path': '/watch',
             'site': 'liv-golf',
             'includeContent': 'true',
             'moduleOffset': offset,
