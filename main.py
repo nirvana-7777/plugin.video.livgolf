@@ -224,7 +224,8 @@ def list_videos(category):
     else:
         next_data = api.get_next_data('/watch')
         if next_data is not None:
-            pagedata = next_data['props']['pageProps']['pageData']
+            pageprops = next_data['props']['pageProps']
+            pagedata = plugin.get_dict_value(pageprops, 'pageData')
             if pagedata is not None:
                 components = plugin.get_dict_value(pagedata, 'components')
                 for component in components:
