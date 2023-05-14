@@ -17,7 +17,7 @@ class ViewliftAPI:
         self.TOKEN = ''
         self.__user_agent = 'kodi plugin for livgolf (python)'
 
-    def api_get(self, url, params):
+    def api_get_post(self, url, params, payload, post):
 
         headers = {
             'connection': 'keep-alive',
@@ -26,7 +26,10 @@ class ViewliftAPI:
             'accept-encoding': 'gzip, deflate, br',
             'authorization': self.TOKEN
         }
-        response = self.session.get(url, headers=headers, params=params)
+        if post:
+            response = self.session.post(url, headers=headers, params=params, data=payload)
+        else:
+            response = self.session.get(url, headers=headers, params=params)
         result = None
         contenttype = response.headers.get('content-type')
         if response.status_code == 200 and (contenttype == "application/json" or contenttype == "application/json; charset=utf-8"):
@@ -36,13 +39,23 @@ class ViewliftAPI:
                                   url + " did not respond 200 OK or JSON but "+str(response.status_code))
         return result
 
-    def get_token(self):
+    def get_token(self, username, password):
 
-        url = self.viewliftBaseUrl + "identity/anonymous-token"
         params = {
             'site': self.plugin.get_setting('site'),
         }
-        result = self.api_get(url, params)
+
+        if username == '' or password == '':
+            url = self.viewliftBaseUrl + "identity/anonymous-token"
+            result = self.api_get_post(url, params, "", False)
+        else:
+            payload = json.dumps({
+                "email": username,
+                "password": password,
+            })
+            url = self.viewliftBaseUrl + "identity/signin"
+            result = self.api_get_post(url, params, payload, True)
+
         if result is not None:
             new_token = result['authorizationToken']
             self.TOKEN = new_token
@@ -62,7 +75,7 @@ class ViewliftAPI:
             'userState': 'eyJzdGF0ZSI6WyJyZWdpc3RlcmVkIl0sImNvbnRlbnRGaWx0ZXJJZCI6bnVsbH0%3D'
         }
 #        print(params)
-        result = self.api_get(url, params)
+        result = self.api_get_post(url, params, "", False)
         return result
 
     def get_next_data(self, page):
@@ -84,7 +97,7 @@ class ViewliftAPI:
             'deviceType': 'web_browser',
             'contentConsumption': 'web',
         }
-        result = self.api_get(url, params)
+        result = self.api_get_post(url, params, "", False)
         return result
 
     def store_date_time(self, unix_time, is_expire):
@@ -114,7 +127,7 @@ class ViewliftAPI:
         self.plugin.set_setting('anonymous_id', self.plugin.get_dict_value(json_token, 'anonymousId'))
         self.plugin.set_setting('user_id', self.plugin.get_dict_value(json_token, 'userId'))
         self.plugin.set_setting('device_id', self.plugin.get_dict_value(json_token, 'deviceId'))
-        self.plugin.set_setting('username', self.plugin.get_dict_value(json_token, 'username'))
+        self.plugin.set_setting('token_user', self.plugin.get_dict_value(json_token, 'username'))
         return True
 
     def is_token_valid(self):

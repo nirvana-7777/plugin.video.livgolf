@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
+    <category label="Credentials">
+        <setting label="Username" type="text" id="username" default="" visible="true"/>
+        <setting label="Password" type="text" id="password" default="" visible="true"/>
+    </category>
     <category label="Viewlift API">
         <setting label="site" type="text" id="site" default="liv-golf" visible="false"/>
         <setting label="device_type" type="text" id="device_type" default="web_browser" visible="false"/>
@@ -17,7 +21,7 @@
         <setting label="Anonymous ID:" type="text" id="anonymous_id" default="" visible="true"/>
         <setting label="User ID:" type="text" id="user_id" default="" visible="true"/>
         <setting label="Device ID:" type="text" id="device_id" default="" visible="true"/>
-        <setting label="Username:" type="text" id="username" default="" visible="true"/>
+        <setting label="Username:" type="text" id="token_user" default="" visible="true"/>
     </category>
     <category label="Renew Token">
         <setting label="Renew Token" type="action" id="renew" action="RunPlugin(plugin://plugin.video.livgolf/?action=renew)"/>
