@@ -35,8 +35,10 @@ plugin = Common(
 cache = StorageServer.StorageServer("Viewlift", 24)
 api = ViewliftAPI(plugin)
 token = plugin.get_setting("token")
+username = plugin.get_setting("username")
+password = plugin.get_setting("password")
 if token == '' or not api.is_token_valid():
-    api.get_token()
+    api.get_token(username, password)
 else:
     api.TOKEN = token
 xbmc.log("Token: " + str(api.TOKEN), level=xbmc.LOGDEBUG)
@@ -363,7 +365,7 @@ def router(paramstring):
                 videoid = None
             play_video(videoid)
         elif params['action'] == 'renew':
-            api.get_token()
+            api.get_token('', '')
             api.store_token_settings()
         elif params['action'] == 'refresh':
             print('Refresh hit')
