@@ -66,23 +66,25 @@ def get_categories():
     categories = ["LivGolfPlus", "LivGolfPlus - Live"]
     next_data = api.get_next_data('/watch')
     if next_data is not None:
-        pagedata = next_data['props']['pageProps']['pageData']
-        components = plugin.get_dict_value(pagedata, 'components')
-        for component in components:
-#            if plugin.get_dict_value(block, 'name') == filter:
-            heading = plugin.get_dict_value(component, 'heading')
-            if heading == "":
-                heading = plugin.get_dict_value(component, 'title')
-#                text = plugin.get_dict_value(content, 'title')
-#                if filter == 'componentIntro':
-#                    teaser = plugin.get_dict_value(content, 'teaser')
-#                    teaser_content = plugin.get_dict_value(teaser, 'content')
-#                    for paragraph in teaser_content:
-#                        paragraph_content = plugin.get_dict_value(paragraph, 'content')
-#                        for text_content in paragraph_content:
-#                            if plugin.get_dict_value(text_content, 'nodeType') == 'text':
-#                                text += ' - ' + plugin.get_dict_value(text_content, 'value')
-            categories.append(heading)
+        pageprops = next_data['props']['pageProps']
+        pagedata = plugin.get_dict_value(pageprops, 'pageData')
+        if pagedata is not None:
+            components = plugin.get_dict_value(pagedata, 'components')
+            for component in components:
+#                if plugin.get_dict_value(block, 'name') == filter:
+                heading = plugin.get_dict_value(component, 'heading')
+                if heading == "":
+                    heading = plugin.get_dict_value(component, 'title')
+#                    text = plugin.get_dict_value(content, 'title')
+#                    if filter == 'componentIntro':
+#                        teaser = plugin.get_dict_value(content, 'teaser')
+#                        teaser_content = plugin.get_dict_value(teaser, 'content')
+#                        for paragraph in teaser_content:
+#                            paragraph_content = plugin.get_dict_value(paragraph, 'content')
+#                            for text_content in paragraph_content:
+#                                if plugin.get_dict_value(text_content, 'nodeType') == 'text':
+#                                    text += ' - ' + plugin.get_dict_value(text_content, 'value')
+                categories.append(heading)
     return categories
 
 
