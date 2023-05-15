@@ -291,14 +291,13 @@ def play_video(videoid):
     #    video_property = 'mpd'
     #    video_url = mpeg_url
     #else:
-    video_property = 'hls'
-    video_url = video_details['video']['streamingInfo']['videoAssets']['hlsDetail']['url']
     title = video_details['video']['gist']['title']
     description = video_details['video']['gist']['description']
     image = video_details['video']['gist']['videoImageUrl']
     duration = video_details['video']['gist']['runtime']
     aired = video_details['video']['gist']['publishDate']
     language = video_details['video']['gist']['languageCode']
+    isdrmenabled = video_details['video']['gist']['drmEnabled']
     aired_str = ""
     if aired is not None:
         unix_timestamp = aired / 1000
@@ -313,6 +312,14 @@ def play_video(videoid):
         'duration': int(duration),
         'mediatype': 'tvshow',
     }
+    if isdrmenabled:
+        video_property = 'mpd'
+        widevine = video_details['video']['streamingInfo']['videoAssets']['widevine']
+        video_url = plugin.get_dict_value(widevine, 'url')
+    else:
+        video_property = 'hls'
+        video_url = video_details['video']['streamingInfo']['videoAssets']['hlsDetail']['url']
+        widevine = None
     playitem = xbmcgui.ListItem(label=title, path=video_url.strip())
     info_tag = ListItemInfoTag(playitem, 'video')
     info_tag.set_info(metadata)
@@ -334,9 +341,21 @@ def play_video(videoid):
 #    playitem.addStreamInfo('audio', {'codec': 'AAC', 'language': 'eng', 'channels': 2})
 #    playitem.addStreamInfo('audio', {'codec': 'aac', 'language': 'en', 'channels': 2})
 #    playitem.addStreamInfo('subtitle', {'language': 'en'})
-    if video_property == 'hls':
-        playitem.setProperty('inputstream', 'inputstream.adaptive')
-        playitem.setProperty('inputstream.adaptive.manifest_type', video_property)
+    playitem.setProperty('inputstream', 'inputstream.adaptive')
+    playitem.setProperty('inputstream.adaptive.manifest_type', video_property)
+    if isdrmenabled:
+        user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
+        license_url = plugin.get_dict_value(widevine, 'licenseUrl')
+        license_token = plugin.get_dict_value(widevine, 'licenseToken')
+        playitem.setMimeType('application/xml+dash')
+        playitem.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
+        playitem.setProperty('inputstream.adaptive.license_key',
+                             license_url +
+                             "|User-Agent=" + user_agent +
+                             #"&Content-Type=text%2Fplain" +
+                             #                              "&origin=https://hrti.hrt.hr" +
+                             #                              "&referer=https://hrti.hrt.hr" +
+                             "&X-Axdrm-Message=" + license_token + "|R{SSM}|R")
     playitem.setContentLookup(False)
     xbmcplugin.setResolvedUrl(_HANDLE, True, listitem=playitem)
 

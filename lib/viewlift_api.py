@@ -51,7 +51,7 @@ class ViewliftAPI:
         else:
             payload = json.dumps({
                 "email": username,
-                "password": password,
+                "password": password
             })
             url = self.viewliftBaseUrl + "identity/signin"
             result = self.api_get_post(url, params, payload, True)
