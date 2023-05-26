@@ -8,7 +8,8 @@ import pyjwt
 
 
 class ViewliftAPI:
-    viewliftBaseUrl = "https://prod-api-cached-2.viewlift.com/"
+    viewliftBaseUrl = "https://prod-api.viewlift.com/"
+    viewliftCachedUrl = "https://prod-api-cached-2.viewlift.com/"
     livgolfurl = "https://www.livgolf.com"
     session = requests.Session()
 
@@ -64,7 +65,7 @@ class ViewliftAPI:
 
     def get_videos(self, path, offset, limit):
 
-        url = self.viewliftBaseUrl + "content/pages"
+        url = self.viewliftCachedUrl + "content/pages"
         params = {
             'path': path,
             'site': 'liv-golf',
