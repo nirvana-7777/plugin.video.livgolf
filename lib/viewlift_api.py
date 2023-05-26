@@ -8,7 +8,7 @@ import pyjwt
 
 
 class ViewliftAPI:
-    viewliftBaseUrl = "https://prod-api.viewlift.com/"
+    viewliftBaseUrl = "https://prod-api-cached-2.viewlift.com/"
     livgolfurl = "https://www.livgolf.com"
     session = requests.Session()
 
