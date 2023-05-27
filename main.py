@@ -353,8 +353,8 @@ def play_video(videoid):
                              license_url +
                              "|User-Agent=" + user_agent +
                              #"&Content-Type=text%2Fplain" +
-                             #                              "&origin=https://hrti.hrt.hr" +
-                             #                              "&referer=https://hrti.hrt.hr" +
+                             "&origin=https://www.livgolfplus.com" +
+                             "&referer=https://www.livgolfplus.com/" +
                              "&X-Axdrm-Message=" + license_token + "|R{SSM}|R")
     playitem.setContentLookup(False)
     xbmcplugin.setResolvedUrl(_HANDLE, True, listitem=playitem)
