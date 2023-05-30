@@ -349,13 +349,16 @@ def play_video(videoid):
         license_token = plugin.get_dict_value(widevine, 'licenseToken')
         playitem.setMimeType('application/xml+dash')
         playitem.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
-        playitem.setProperty('inputstream.adaptive.license_key',
-                             license_url +
-                             "|User-Agent=" + user_agent +
-                             #"&Content-Type=text%2Fplain" +
-                             "&origin=https://www.livgolfplus.com" +
-                             "&referer=https://www.livgolfplus.com/" +
-                             "&X-Axdrm-Message=" + license_token + "|R{SSM}|R")
+        burl = 'https://www.livgolfplus.com'
+        lic = license_url + '|User-Agent=' + user_agent + '&Referer=' + burl +'/&Origin=' + burl + '&X-Axdrm-Message=' + license_token + '&Content-Type= |R{SSM}|'
+        playitem.setProperty('inputstream.adaptive.license_key', lic)
+#        playitem.setProperty('inputstream.adaptive.license_key',
+#                             license_url +
+#                             "|User-Agent=" + user_agent +
+#                             #"&Content-Type=text%2Fplain" +
+#                             "&origin=https://www.livgolfplus.com" +
+#                             "&referer=https://www.livgolfplus.com/" +
+#                             "&X-Axdrm-Message=" + license_token + "|R{SSM}|R")
     playitem.setContentLookup(False)
     xbmcplugin.setResolvedUrl(_HANDLE, True, listitem=playitem)
 
