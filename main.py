@@ -35,8 +35,10 @@ plugin = Common(
 cache = StorageServer.StorageServer("Viewlift", 24)
 api = ViewliftAPI(plugin)
 token = plugin.get_setting("token")
-username = plugin.get_setting("username")
-password = plugin.get_setting("password")
+#username = plugin.get_setting("username")
+#password = plugin.get_setting("password")
+username = ''
+password = ''
 if token == '' or not api.is_token_valid():
     api.get_token(username, password)
 else:
@@ -352,13 +354,6 @@ def play_video(videoid):
         burl = 'https://www.livgolfplus.com'
         lic = license_url + '|User-Agent=' + user_agent + '&Referer=' + burl +'/&Origin=' + burl + '&X-Axdrm-Message=' + license_token + '&Content-Type= |R{SSM}|'
         playitem.setProperty('inputstream.adaptive.license_key', lic)
-#        playitem.setProperty('inputstream.adaptive.license_key',
-#                             license_url +
-#                             "|User-Agent=" + user_agent +
-#                             #"&Content-Type=text%2Fplain" +
-#                             "&origin=https://www.livgolfplus.com" +
-#                             "&referer=https://www.livgolfplus.com/" +
-#                             "&X-Axdrm-Message=" + license_token + "|R{SSM}|R")
     playitem.setContentLookup(False)
     xbmcplugin.setResolvedUrl(_HANDLE, True, listitem=playitem)
 

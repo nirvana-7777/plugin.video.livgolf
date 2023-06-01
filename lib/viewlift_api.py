@@ -15,6 +15,7 @@ class ViewliftAPI:
 
     def __init__(self, plugin):
         self.plugin = plugin
+        self.anonymous = True
         self.TOKEN = ''
         self.__user_agent = 'kodi plugin for livgolf (python)'
 
@@ -32,6 +33,22 @@ class ViewliftAPI:
         else:
             response = self.session.get(url, headers=headers, params=params)
         result = None
+        if response.status_code == 403 and self.anonymous:
+            username = self.plugin.get_setting("username")
+            password = self.plugin.get_setting("password")
+            self.get_token(username, password)
+            headers = {
+                'connection': 'keep-alive',
+                'accept': 'application/json, text/plain, */*',
+                'user-agent': self.__user_agent,
+                'accept-encoding': 'gzip, deflate, br',
+                'authorization': self.TOKEN
+            }
+            if post:
+                response = self.session.post(url, headers=headers, params=params, data=payload)
+            else:
+                response = self.session.get(url, headers=headers, params=params)
+            result = None
         contenttype = response.headers.get('content-type')
         if response.status_code == 200 and (contenttype == "application/json" or contenttype == "application/json; charset=utf-8"):
             result = response.json()
@@ -56,6 +73,7 @@ class ViewliftAPI:
             })
             url = self.viewliftBaseUrl + "identity/signin"
             result = self.api_get_post(url, params, payload, True)
+            self.anonymous = False
 
         if result is not None:
             new_token = result['authorizationToken']
