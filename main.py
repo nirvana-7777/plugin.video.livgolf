@@ -293,69 +293,70 @@ def play_video(videoid):
     #    video_property = 'mpd'
     #    video_url = mpeg_url
     #else:
-    title = video_details['video']['gist']['title']
-    description = video_details['video']['gist']['description']
-    image = video_details['video']['gist']['videoImageUrl']
-    duration = video_details['video']['gist']['runtime']
-    aired = video_details['video']['gist']['publishDate']
-    language = video_details['video']['gist']['languageCode']
-    isdrmenabled = video_details['video']['gist']['drmEnabled']
-    aired_str = ""
-    if aired is not None:
-        unix_timestamp = aired / 1000
-        utc_time = time.gmtime(unix_timestamp)
-        local_time = time.localtime(unix_timestamp)
-        aired_str = time.strftime("%Y-%m-%d %H:%M:%S", local_time)
-    metadata = {
-        'plot': description.replace('<br>', ''),
-        'title': title.strip(),
-        'genre': ['Sports', 'Golf'],
-        'aired': aired_str,
-        'duration': int(duration),
-        'mediatype': 'tvshow',
-    }
-    if isdrmenabled:
-        video_property = 'mpd'
-        widevine = video_details['video']['streamingInfo']['videoAssets']['widevine']
-        video_url = plugin.get_dict_value(widevine, 'url')
-    else:
-        video_property = 'hls'
-        video_url = video_details['video']['streamingInfo']['videoAssets']['hlsDetail']['url']
-        widevine = None
-    playitem = xbmcgui.ListItem(label=title, path=video_url.strip())
-    info_tag = ListItemInfoTag(playitem, 'video')
-    info_tag.set_info(metadata)
-    art = {'clearart': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources',
-                                    'LIVGOLF_logo.png'),
-           'clearlogo': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources',
+    if video_details is not None:
+        title = video_details['video']['gist']['title']
+        description = video_details['video']['gist']['description']
+        image = video_details['video']['gist']['videoImageUrl']
+        duration = video_details['video']['gist']['runtime']
+        aired = video_details['video']['gist']['publishDate']
+        language = video_details['video']['gist']['languageCode']
+        isdrmenabled = video_details['video']['gist']['drmEnabled']
+        aired_str = ""
+        if aired is not None:
+            unix_timestamp = aired / 1000
+            utc_time = time.gmtime(unix_timestamp)
+            local_time = time.localtime(unix_timestamp)
+            aired_str = time.strftime("%Y-%m-%d %H:%M:%S", local_time)
+        metadata = {
+            'plot': description.replace('<br>', ''),
+            'title': title.strip(),
+            'genre': ['Sports', 'Golf'],
+            'aired': aired_str,
+            'duration': int(duration),
+            'mediatype': 'tvshow',
+        }
+        if isdrmenabled:
+            video_property = 'mpd'
+            widevine = video_details['video']['streamingInfo']['videoAssets']['widevine']
+            video_url = plugin.get_dict_value(widevine, 'url')
+        else:
+            video_property = 'hls'
+            video_url = video_details['video']['streamingInfo']['videoAssets']['hlsDetail']['url']
+            widevine = None
+        playitem = xbmcgui.ListItem(label=title, path=video_url.strip())
+        info_tag = ListItemInfoTag(playitem, 'video')
+        info_tag.set_info(metadata)
+        art = {'clearart': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources',
+                                        'LIVGOLF_logo.png'),
+                'clearlogo': os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources',
                                      'icon.png'),
-           'poster': image,
-           'fanart': image,
-           'thumb': image}
-    playitem.setArt(art)
-    stream_details = {
-        'audio': [{ 'codec': 'aac',
-                    'channels': 2,
-                    'language': 'eng' }],
-        'subtitle': [{ 'language': 'eng' }]}
-    if language == "default":
-        info_tag.set_stream_details(stream_details)
-#    playitem.addStreamInfo('audio', {'codec': 'AAC', 'language': 'eng', 'channels': 2})
-#    playitem.addStreamInfo('audio', {'codec': 'aac', 'language': 'en', 'channels': 2})
-#    playitem.addStreamInfo('subtitle', {'language': 'en'})
-    playitem.setProperty('inputstream', 'inputstream.adaptive')
-    playitem.setProperty('inputstream.adaptive.manifest_type', video_property)
-    if isdrmenabled:
-        user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
-        license_url = plugin.get_dict_value(widevine, 'licenseUrl')
-        license_token = plugin.get_dict_value(widevine, 'licenseToken')
-        playitem.setMimeType('application/xml+dash')
-        playitem.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
-        burl = 'https://www.livgolfplus.com'
-        lic = license_url + '|User-Agent=' + user_agent + '&Referer=' + burl +'/&Origin=' + burl + '&X-Axdrm-Message=' + license_token + '&Content-Type= |R{SSM}|'
-        playitem.setProperty('inputstream.adaptive.license_key', lic)
-    playitem.setContentLookup(False)
-    xbmcplugin.setResolvedUrl(_HANDLE, True, listitem=playitem)
+                'poster': image,
+                'fanart': image,
+                'thumb': image}
+        playitem.setArt(art)
+        stream_details = {
+            'audio': [{ 'codec': 'aac',
+                        'channels': 2,
+                        'language': 'eng' }],
+            'subtitle': [{ 'language': 'eng' }]}
+        if language == "default":
+            info_tag.set_stream_details(stream_details)
+#       playitem.addStreamInfo('audio', {'codec': 'AAC', 'language': 'eng', 'channels': 2})
+#       playitem.addStreamInfo('audio', {'codec': 'aac', 'language': 'en', 'channels': 2})
+#       playitem.addStreamInfo('subtitle', {'language': 'en'})
+        playitem.setProperty('inputstream', 'inputstream.adaptive')
+        playitem.setProperty('inputstream.adaptive.manifest_type', video_property)
+        if isdrmenabled:
+            user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
+            license_url = plugin.get_dict_value(widevine, 'licenseUrl')
+            license_token = plugin.get_dict_value(widevine, 'licenseToken')
+            playitem.setMimeType('application/xml+dash')
+            playitem.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
+            burl = 'https://www.livgolfplus.com'
+            lic = license_url + '|User-Agent=' + user_agent + '&Referer=' + burl +'/&Origin=' + burl + '&X-Axdrm-Message=' + license_token + '&Content-Type= |R{SSM}|'
+            playitem.setProperty('inputstream.adaptive.license_key', lic)
+        playitem.setContentLookup(False)
+        xbmcplugin.setResolvedUrl(_HANDLE, True, listitem=playitem)
 
 
 def router(paramstring):
