@@ -37,7 +37,7 @@
             - Version 0.4.2: Add DRM for Live Streaming
             - Version 0.4.3: Switch to cached API
             - Version 0.4.4: Use different APIs
-            - Version 0.4.5: Fix anonymous token
+            - Version 0.4.5: Change token handling
         </news>
         <assets>
             <icon>resources/icon.png</icon>

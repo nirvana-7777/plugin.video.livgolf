@@ -11,6 +11,7 @@ class ViewliftAPI:
     viewliftBaseUrl = "https://prod-api.viewlift.com/"
     viewliftCachedUrl = "https://prod-api-cached-2.viewlift.com/"
     livgolfurl = "https://www.livgolf.com"
+    xapikey = "PBSooUe91s7RNRKnXTmQG7z3gwD2aDTA6TlJp6ef"
     session = requests.Session()
 
     def __init__(self, plugin):
@@ -28,7 +29,7 @@ class ViewliftAPI:
             'accept-encoding': 'gzip, deflate, br',
         }
         if self.anonymous:
-            headers.update({'x-api-key': 'PBSooUe91s7RNRKnXTmQG7z3gwD2aDTA6TlJp6ef'})
+            headers.update({'x-api-key': self.xapikey})
         else:
             headers.update({'authorization': self.TOKEN})
 
@@ -37,6 +38,20 @@ class ViewliftAPI:
         else:
             response = self.session.get(url, headers=headers, params=params)
         result = None
+        if response.status_code == 401:
+            self.get_token('', '')
+            headers = {
+                'connection': 'keep-alive',
+                'accept': 'application/json, text/plain, */*',
+                'user-agent': self.__user_agent,
+                'accept-encoding': 'gzip, deflate, br',
+                'x-api-key': self.xapikey
+            }
+            if post:
+                response = self.session.post(url, headers=headers, params=params, data=payload)
+            else:
+                response = self.session.get(url, headers=headers, params=params)
+            result = None
         if response.status_code == 403 and self.anonymous:
             username = self.plugin.get_setting("username")
             password = self.plugin.get_setting("password")
@@ -70,6 +85,7 @@ class ViewliftAPI:
         if username == '' or password == '':
             url = self.viewliftBaseUrl + "identity/anonymous-token"
             result = self.api_get_post(url, params, "", False)
+            self.anonymous = True
         else:
             payload = json.dumps({
                 "email": username,
