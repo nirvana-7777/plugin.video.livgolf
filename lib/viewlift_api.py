@@ -68,7 +68,10 @@ class ViewliftAPI:
                 response = self.session.get(url, headers=headers, params=params)
 
         contenttype = response.headers.get('content-type')
-        if response.status_code == 200 and (contenttype == "application/json" or contenttype == "application/json; charset=utf-8"):
+        if response.status_code == 403 and (contenttype == "application/json" or contenttype == "application/json; charset=utf-8"):
+            errordesc = response.json().get("errorMessage")
+            self.plugin.dialog_ok(str(errordesc))
+        elif response.status_code == 200 and (contenttype == "application/json" or contenttype == "application/json; charset=utf-8"):
             result = response.json()
         else:
             self.plugin.dialog_ok("Viewlift API Call for " +
