@@ -28,7 +28,7 @@ class ViewliftAPI:
             'user-agent': self.__user_agent,
             'accept-encoding': 'gzip, deflate, br',
         }
-        if self.anonymous:
+        if self.TOKEN == '':
             headers.update({'x-api-key': self.xapikey})
         else:
             headers.update({'authorization': self.TOKEN})
@@ -45,13 +45,12 @@ class ViewliftAPI:
                 'accept': 'application/json, text/plain, */*',
                 'user-agent': self.__user_agent,
                 'accept-encoding': 'gzip, deflate, br',
-                'x-api-key': self.xapikey
+                'authorization': self.TOKEN
             }
             if post:
                 response = self.session.post(url, headers=headers, params=params, data=payload)
             else:
                 response = self.session.get(url, headers=headers, params=params)
-            result = None
         if response.status_code == 403 and self.anonymous:
             username = self.plugin.get_setting("username")
             password = self.plugin.get_setting("password")
@@ -67,7 +66,7 @@ class ViewliftAPI:
                 response = self.session.post(url, headers=headers, params=params, data=payload)
             else:
                 response = self.session.get(url, headers=headers, params=params)
-            result = None
+
         contenttype = response.headers.get('content-type')
         if response.status_code == 200 and (contenttype == "application/json" or contenttype == "application/json; charset=utf-8"):
             result = response.json()
