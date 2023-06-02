@@ -26,8 +26,12 @@ class ViewliftAPI:
             'accept': 'application/json, text/plain, */*',
             'user-agent': self.__user_agent,
             'accept-encoding': 'gzip, deflate, br',
-            'authorization': self.TOKEN
         }
+        if self.anonymous:
+            headers.update({'x-api-key': 'PBSooUe91s7RNRKnXTmQG7z3gwD2aDTA6TlJp6ef'})
+        else:
+            headers.update({'authorization': self.TOKEN})
+
         if post:
             response = self.session.post(url, headers=headers, params=params, data=payload)
         else:
